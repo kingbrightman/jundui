@@ -16,5 +16,10 @@ public class UserController {
         return "user";
     }
 
+    @RequestMapping("/userpae")
+    public String userPage() {
+        return "userpage";
+    }
+
 
 }

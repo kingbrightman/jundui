@@ -25,7 +25,7 @@ public interface IUserDao extends IBaseDao<User> {
 
     List<UserTrainSubject> listUserTrainSubject(int uid);
 
-    UserDepartment loadUserDepartment(int uid, int departmentid);
+    UserGroup loadUserGroup(int uid, int departmentid);
 
-    void addUserDepartment(User user, Department department);
+    void addUserGroup(User user, Group department);
 }

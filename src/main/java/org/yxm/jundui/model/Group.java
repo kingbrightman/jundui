@@ -6,18 +6,18 @@ import javax.persistence.*;
  * Created by yxm on 2016.11.15.
  */
 @Entity
-@Table(name = "t_department")
-public class Department {
+@Table(name = "t_group")
+public class Group {
 
     private int id;
     private String name;
     private String description;
-    private Department parent;
+    private Group parent;
 
-    public Department() {
+    public Group() {
     }
 
-    public Department(String name, String description) {
+    public Group(String name, String description) {
         this.name = name;
         this.description = description;
     }
@@ -50,11 +50,11 @@ public class Department {
 
     @ManyToOne
     @JoinColumn(name = "p_id")
-    public Department getParent() {
+    public Group getParent() {
         return parent;
     }
 
-    public void setParent(Department parent) {
+    public void setParent(Group parent) {
         this.parent = parent;
     }
 }

@@ -1,6 +1,5 @@
 package dao;
 
-import com.sun.javafx.util.TempState;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,7 +34,7 @@ public class TestUserDao {
     private ISubjectDao subjectDao;
 
     @Autowired
-    private IDepartmentDao departmentDao;
+    private IGroupDao groupDao;
 
 
     @Test
@@ -128,16 +127,16 @@ public class TestUserDao {
     }
 
     @Test
-    public void addUserDepartment() {
-        Department d = departmentDao.load(1);
+    public void addUserGroup() {
+        Group d = groupDao.load(1);
         User u1 = userDao.load(4);
         User u2 = userDao.load(5);
         User u3 = userDao.load(6);
         User u4 = userDao.load(7);
 
-        userDao.addUserDepartment(u1, d);
-        userDao.addUserDepartment(u2, d);
-        userDao.addUserDepartment(u3, d);
-        userDao.addUserDepartment(u4, d);
+        userDao.addUserGroup(u1, d);
+        userDao.addUserGroup(u2, d);
+        userDao.addUserGroup(u3, d);
+        userDao.addUserGroup(u4, d);
     }
 }

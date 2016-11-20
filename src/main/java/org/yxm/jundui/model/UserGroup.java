@@ -6,15 +6,15 @@ import javax.persistence.*;
  * Created by yxm on 2016.11.15.
  */
 @Entity
-@Table(name = "t_use_department")
-public class UserDepartment {
+@Table(name = "t_user_group")
+public class UserGroup {
 
     private int id;
     private User user;
-    private Department department;
+    private Group group;
 
 
-    public UserDepartment() {
+    public UserGroup() {
     }
 
     @Id
@@ -38,12 +38,12 @@ public class UserDepartment {
     }
 
     @ManyToOne
-    @JoinColumn(name = "department_id")
-    public Department getDepartment() {
-        return department;
+    @JoinColumn(name = "group_id")
+    public Group getGroup() {
+        return group;
     }
 
-    public void setDepartment(Department department) {
-        this.department = department;
+    public void setGroup(Group group) {
+        this.group = group;
     }
 }
