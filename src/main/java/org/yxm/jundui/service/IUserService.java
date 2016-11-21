@@ -22,4 +22,9 @@ public interface IUserService {
 
     Pager<User> find();
 
+    void add(User user, Integer[] roleIds, Integer[] groupIds);
+
+    void addUserRole(int uid, int rid);
+
+    void addUserGroup(int uid, int gid);
 }

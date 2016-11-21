@@ -12,7 +12,7 @@
     <thead>
     <tr>
         <td>ID</td>
-        <td>名称</td>
+        <td>姓名</td>
         <td>昵称</td>
         <td>性别</td>
         <td>创建日期</td>

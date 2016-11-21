@@ -8,9 +8,15 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.yxm.jundui.dao.IGroupDao;
 import org.yxm.jundui.model.User;
+import org.yxm.jundui.model.UserDto;
+import org.yxm.jundui.service.IGroupService;
+import org.yxm.jundui.service.IRoleService;
 import org.yxm.jundui.service.IUserService;
 import org.yxm.jundui.service.UserService;
+
+import javax.validation.Valid;
 
 /**
  * Created by yxm on 2016.11.15.
@@ -21,6 +27,10 @@ public class UserController {
 
     @Autowired
     IUserService userService;
+    @Autowired
+    IRoleService roleService;
+    @Autowired
+    IGroupService groupService;
 
     @RequestMapping(value = "/users")
     public String list(Model model) {
@@ -28,18 +38,25 @@ public class UserController {
         return "user/list";
     }
 
+    private void initAdd(Model model) {
+        model.addAttribute("roles", roleService.list());
+        model.addAttribute("groups", groupService.list());
+    }
+
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String add(Model model) {
-        model.addAttribute(new User());
+        model.addAttribute("userDto", new UserDto());
+        initAdd(model);
         return "user/edit";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String add(@Validated User user, BindingResult br) {
+    public String add(@Valid UserDto userDto, BindingResult br, Model model) {
         if (br.hasErrors()) {
+            initAdd(model);
             return "user/edit";
         }
-        userService.add(user);
+        userService.add(userDto.getUser(), userDto.getRoleIds(), userDto.getGroupIds());
 
         //TODO: 修改group和role
         return "redirect:/admin/user/users";
