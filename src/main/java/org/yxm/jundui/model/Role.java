@@ -1,9 +1,6 @@
 package org.yxm.jundui.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by yxm on 2016.11.15.
@@ -15,6 +12,7 @@ public class Role {
     private int id;
     private String name;
     private String description;
+    private RoleType type;
 
     public Role() {
     }
@@ -48,5 +46,15 @@ public class Role {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type")
+    public RoleType getType() {
+        return type;
+    }
+
+    public void setType(RoleType type) {
+        this.type = type;
     }
 }

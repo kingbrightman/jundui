@@ -28,4 +28,8 @@ public interface IUserDao extends IBaseDao<User> {
     UserGroup loadUserGroup(int uid, int departmentid);
 
     void addUserGroup(User user, Group department);
+
+    List<User> list();
+
+    Pager<User> find();
 }

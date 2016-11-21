@@ -12,6 +12,16 @@ import java.util.List;
 public class UserDao extends BaseDao<User> implements IUserDao {
 
     @Override
+    public List<User> list() {
+        return this.list("from User");
+    }
+
+    @Override
+    public Pager<User> find() {
+        return this.find("from User");
+    }
+
+    @Override
     public UserRole loadUserRole(int uid, int rid) {
         String hql = "select ur from UserRole ur left join fetch ur.user u " +
                 " left join fetch ur.role r where u.id=? and r.id=?";

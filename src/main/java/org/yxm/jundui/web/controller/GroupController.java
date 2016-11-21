@@ -34,16 +34,15 @@ public class GroupController {
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String add(Model model) {
         model.addAttribute(new Group());
-        return "group/add";
+        model.addAttribute("groups", groupService.list());
+        return "group/edit";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String add(@Validated Group group, BindingResult br) {
         if (br.hasErrors()) {
-            System.out.println(br.getErrorCount());
-            return "group/add";
+            return "group/edit";
         }
-        System.out.println("add success");
         groupService.add(group);
         return "redirect:/admin/group/groups";
     }
@@ -51,18 +50,20 @@ public class GroupController {
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
     public String update(@PathVariable int id, Model model) {
         model.addAttribute(groupService.load(id));
-        return "group/update";
+        model.addAttribute("groups", groupService.list());
+        return "group/edit";
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     public String update(@PathVariable int id, @Validated Group group, BindingResult br) {
         if (br.hasErrors()) {
-            return "group/update";
+            return "group/edit";
         }
-        Group ug = groupService.load(id);
-        ug.setDescription(group.getDescription());
-        ug.setName(group.getName());
-        groupService.update(ug);
+        Group g = groupService.load(id);
+        g.setDescription(group.getDescription());
+        g.setName(group.getName());
+        g.setParent(group.getParent());
+        groupService.update(g);
         return "redirect:/admin/group/groups";
     }
 

@@ -3,7 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Update</title>
+    <title>Add</title>
 </head>
 <body>
 
@@ -16,6 +16,10 @@
         <tr>
             <td>描述</td>
             <td><sf:input path="description"/></td>
+        </tr>
+        <tr>
+            <td>上级部门</td>
+            <td><sf:select path="parent.id" items="${groups}" itemLabel="name" itemValue="id"></sf:select></td>
         </tr>
         <tr>
             <td colspan="2"><input type="submit" value="提交"> <input type="reset" value="重置"></td>

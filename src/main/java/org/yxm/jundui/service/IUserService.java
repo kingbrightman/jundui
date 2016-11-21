@@ -14,7 +14,7 @@ public interface IUserService {
 
     void delete(int id);
 
-    void load(int id);
+    User load(int id);
 
     void update(User department);
 

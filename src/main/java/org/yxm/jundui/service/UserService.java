@@ -27,26 +27,26 @@ public class UserService implements IUserService {
 
     @Override
     public void delete(int id) {
-
+        userDao.delete(id);
     }
 
     @Override
-    public void load(int id) {
-
+    public User load(int id) {
+        return userDao.load(id);
     }
 
     @Override
     public void update(User user) {
-
+        userDao.update(user);
     }
 
     @Override
     public List<User> list() {
-        return null;
+        return userDao.list();
     }
 
     @Override
     public Pager<User> find() {
-        return null;
+        return userDao.find();
     }
 }
