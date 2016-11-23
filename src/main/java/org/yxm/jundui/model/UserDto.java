@@ -13,10 +13,9 @@ public class UserDto {
     private String name;
     private String sex;
     private Date createDate;
+    private Group group;
 
     private Integer[] roleIds;
-
-    private Integer[] groupIds;
 
     public UserDto() {
     }
@@ -77,12 +76,12 @@ public class UserDto {
         this.roleIds = roleIds;
     }
 
-    public Integer[] getGroupIds() {
-        return groupIds;
+    public Group getGroup() {
+        return group;
     }
 
-    public void setGroupIds(Integer[] groupIds) {
-        this.groupIds = groupIds;
+    public void setGroup(Group group) {
+        this.group = group;
     }
 
     public User getUser() {
@@ -93,6 +92,7 @@ public class UserDto {
         u.setPassword(this.password);
         u.setCreateDate(this.getCreateDate());
         u.setSex(this.sex);
+        u.setGroup(this.getGroup());
         return u;
     }
 
@@ -103,9 +103,10 @@ public class UserDto {
         this.setPassword(user.getPassword());
         this.setSex(user.getSex());
         this.setCreateDate(user.getCreateDate());
+        this.setGroup(user.getGroup());
     }
 
-    public UserDto(User user, Integer[] roleIds, Integer[] groupIds) {
+    public UserDto(User user, Integer[] roleIds) {
         this.setId(user.getId());
         this.setName(user.getName());
         this.setUsername(user.getUsername());
@@ -113,10 +114,10 @@ public class UserDto {
         this.setSex(user.getSex());
         this.setCreateDate(user.getCreateDate());
         this.setRoleIds(roleIds);
-        this.setGroupIds(groupIds);
+        this.setGroup(user.getGroup());
     }
 
-    public UserDto(User user, List<Integer> roleIds, List<Integer> groupIds) {
+    public UserDto(User user, List<Integer> roleIds) {
         this.setId(user.getId());
         this.setName(user.getName());
         this.setUsername(user.getUsername());
@@ -124,7 +125,7 @@ public class UserDto {
         this.setSex(user.getSex());
         this.setCreateDate(user.getCreateDate());
         this.setRoleIds(list2Array(roleIds));
-        this.setGroupIds(list2Array(groupIds));
+        this.setGroup(user.getGroup());
     }
 
     private Integer[] list2Array(List<Integer> datas) {

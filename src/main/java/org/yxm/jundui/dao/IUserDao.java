@@ -9,10 +9,19 @@ import java.util.List;
  */
 public interface IUserDao extends IBaseDao<User> {
 
+    // user role
     UserRole loadUserRole(int uid, int rid);
 
     void addUserRole(User user, Role role);
 
+    void deleteUserRole(int uid, Integer rid);
+
+    List<Integer> listUserRoleIds(int userId);
+
+    List<Role> listUserRoles(int id);
+
+
+    // user train
     UserTrain loadUserTrain(int uid, int tid);
 
     void addUserTrain(User user, Train train);
@@ -25,9 +34,9 @@ public interface IUserDao extends IBaseDao<User> {
 
     List<UserTrainSubject> listUserTrainSubject(int uid);
 
-    UserGroup loadUserGroup(int uid, int departmentid);
 
-    void addUserGroup(User user, Group department);
+    // user group
+    void addUserGroup(User user, Group group);
 
     List<User> list();
 

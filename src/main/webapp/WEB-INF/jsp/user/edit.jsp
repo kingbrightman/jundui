@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<sf:form modelAttribute="user_dto">
+<sf:form modelAttribute="userDto">
     <table>
         <tr>
             <td>姓名</td>
@@ -14,7 +14,7 @@
         </tr>
         <tr>
             <td>昵称</td>
-            <td><sf:input path="nickname"/></td>
+            <td><sf:input path="username"/></td>
         </tr>
         <tr>
             <td>性别</td>
@@ -30,7 +30,7 @@
         <tr>
             <td>所在部门</td>
             <td>
-                <sf:select path="groupIds" items="${groups}" itemLabel="name" itemValue="id"/>
+                <sf:select path="group.id" items="${groups}" itemLabel="name" itemValue="id"/>
             </td>
         </tr>
         <tr>

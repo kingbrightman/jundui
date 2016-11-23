@@ -10,21 +10,27 @@ import java.util.List;
  */
 public interface IUserService {
 
-    void add(User department);
+    void add(User user);
 
     void delete(int id);
 
     User load(int id);
 
-    void update(User department);
+    void update(User user);
 
     List<User> list();
 
     Pager<User> find();
 
-    void add(User user, Integer[] roleIds, Integer[] groupIds);
+    void add(User user, Integer[] roleIds);
 
     void addUserRole(int uid, int rid);
 
     void addUserGroup(int uid, int gid);
+
+    void update(User user, Integer[] roleIds);
+
+    void deleteUserRole(int uid, Integer rid);
+
+    List<Integer> listUserRoleIds(int uid);
 }

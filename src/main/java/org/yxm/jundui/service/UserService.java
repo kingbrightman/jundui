@@ -1,15 +1,18 @@
 package org.yxm.jundui.service;
 
+import com.sun.tools.javac.util.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.yxm.jundui.dao.IGroupDao;
 import org.yxm.jundui.dao.IRoleDao;
 import org.yxm.jundui.dao.IUserDao;
 import org.yxm.jundui.dao.UserDao;
+import org.yxm.jundui.model.Role;
 import org.yxm.jundui.model.User;
 import org.yxm.jundui.model.Pager;
 import org.yxm.jundui.model.User;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -58,19 +61,14 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void add(User user, Integer[] roleIds, Integer[] groupIds) {
+    public void add(User user, Integer[] roleIds) {
         user.setCreateDate(new Date());
         userDao.add(user);
 
         for (Integer rid : roleIds) {
             this.addUserRole(user.getId(), rid);
         }
-
-        for (Integer gid : groupIds) {
-            this.addUserGroup(user.getId(), gid);
-        }
     }
-
 
     @Override
     public void addUserRole(int uid, int rid) {
@@ -82,5 +80,33 @@ public class UserService implements IUserService {
         userDao.addUserGroup(userDao.load(uid), groupDao.load(gid));
     }
 
+    @Override
+    public void update(User user, Integer[] roleIds) {
+        List<Integer> oldRoleIds = userDao.listUserRoleIds(user.getId());
 
+        //添加没有的
+        for (Integer rid : roleIds) {
+            if (!oldRoleIds.contains(rid)) {
+                this.addUserRole(user.getId(), rid);
+            }
+        }
+
+        List<Integer> newRoleIds = Arrays.asList(roleIds);
+        //删除多余的
+        for (Integer oid : oldRoleIds) {
+            if (!newRoleIds.contains(oid)) {
+                this.deleteUserRole(user.getId(), oid);
+            }
+        }
+    }
+
+    @Override
+    public void deleteUserRole(int uid, Integer rid) {
+        userDao.deleteUserRole(uid, rid);
+    }
+
+    @Override
+    public List<Integer> listUserRoleIds(int uid) {
+        return userDao.listUserRoleIds(uid);
+    }
 }

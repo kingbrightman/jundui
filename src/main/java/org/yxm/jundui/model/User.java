@@ -16,8 +16,9 @@ public class User {
     private String name;
     private String sex;
 
-
     private Date createDate;
+
+    private Group group;
 
     public User() {
     }
@@ -80,4 +81,13 @@ public class User {
         this.createDate = createDate;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "gid")
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
 }
