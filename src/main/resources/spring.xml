@@ -13,5 +13,4 @@
     <!-- 自动扫描(自动注入) -->
     <context:component-scan base-package="org.yxm.jundui.dao,org.yxm.jundui.service"/>
 
-
 </beans>
