@@ -26,8 +26,8 @@
             <td>${role.description}</td>
             <td>${role.type}</td>
             <td>
-                <a href="delete/${role.id}">删除</a>
                 <a href="update/${role.id}">修改</a>
+                <a href="delete/${role.id}">删除</a>
             </td>
         </tr>
     </c:forEach>

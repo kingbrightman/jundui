@@ -4,12 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.yxm.jundui.dao.UserDao;
 import org.yxm.jundui.model.User;
-import org.yxm.jundui.model.UserDto;
+import org.yxm.jundui.web.dto.UserDto;
 import org.yxm.jundui.service.IGroupService;
 import org.yxm.jundui.service.IRoleService;
 import org.yxm.jundui.service.IUserService;
@@ -49,14 +49,13 @@ public class UserController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String add(@Valid UserDto userDto, BindingResult br, Model model) {
+    public String add(@Valid @ModelAttribute("userDto") UserDto userDto, BindingResult br, Model model) {
         if (br.hasErrors()) {
             initAdd(model);
             return "user/edit";
         }
         userService.add(userDto.getUser(), userDto.getRoleIds());
 
-        //TODO: 修改group和role
         return "redirect:/admin/user/users";
     }
 
@@ -92,7 +91,6 @@ public class UserController {
 
         userService.update(oldUser, userDto.getRoleIds());
 
-        //TODO: 修改group和role
         return "redirect:/admin/user/users";
     }
 

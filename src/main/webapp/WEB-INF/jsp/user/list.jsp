@@ -16,6 +16,7 @@
         <td>昵称</td>
         <td>性别</td>
         <td>创建日期</td>
+        <td>所属部队</td>
         <td>密码</td>
         <td>操作</td>
     </tr>
@@ -29,10 +30,11 @@
             <td>${user.username}</td>
             <td>${user.sex}</td>
             <td>${user.createDate}</td>
+            <td>${user.group.name}</td>
             <td>${user.password}</td>
             <td>
-                <a href="delete/${user.id}">删除</a>
                 <a href="update/${user.id}">修改</a>
+                <a href="delete/${user.id}">删除</a>
             </td>
         </tr>
     </c:forEach>

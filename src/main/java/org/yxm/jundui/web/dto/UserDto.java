@@ -1,5 +1,10 @@
-package org.yxm.jundui.model;
+package org.yxm.jundui.web.dto;
 
+import org.hibernate.validator.constraints.NotEmpty;
+import org.yxm.jundui.model.Group;
+import org.yxm.jundui.model.User;
+
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
@@ -8,8 +13,13 @@ import java.util.List;
  */
 public class UserDto {
     private int id;
+    @NotEmpty(message = "名字不能为空")
+    @NotNull(message = "名字不能为空")
     private String username;
     private String password;
+
+    @NotEmpty(message = "名字不能为空")
+    @NotNull(message = "名字不能为空")
     private String name;
     private String sex;
     private Date createDate;
@@ -43,6 +53,7 @@ public class UserDto {
     public void setPassword(String password) {
         this.password = password;
     }
+
 
     public String getName() {
         return name;

@@ -1,4 +1,5 @@
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -6,15 +7,15 @@
 </head>
 <body>
 
-<sf:form modelAttribute="userDto">
+<sf:form modelAttribute="userDto" method="post">
     <table>
         <tr>
             <td>姓名</td>
-            <td><sf:input path="name"/></td>
+            <td><sf:input path="name"/><sf:errors path="name"/></td>
         </tr>
         <tr>
             <td>昵称</td>
-            <td><sf:input path="username"/></td>
+            <td><sf:input path="username"/><sf:errors path="name"/></td>
         </tr>
         <tr>
             <td>性别</td>

@@ -27,8 +27,8 @@
             <td>${group.description}</td>
             <td>${group.parent.id}</td>
             <td>
-                <a href="delete/${group.id}">删除</a>
                 <a href="update/${group.id}">修改</a>
+                <a href="delete/${group.id}">删除</a>
             </td>
         </tr>
     </c:forEach>
