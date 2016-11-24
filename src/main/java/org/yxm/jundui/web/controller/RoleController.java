@@ -23,7 +23,7 @@ public class RoleController {
     @Autowired
     IRoleService roleService;
 
-    @RequestMapping("/roles")
+    @RequestMapping("/list")
     public String list(Model model) {
         model.addAttribute("datas", roleService.find());
         return "role/list";
@@ -46,13 +46,13 @@ public class RoleController {
             return "role/edit";
         }
         roleService.add(role);
-        return "redirect:/admin/role/roles";
+        return "redirect:/admin/role/list";
     }
 
     @RequestMapping(value = "/delete/{id}")
     public String delete(@PathVariable int id) {
         roleService.delete(id);
-        return "redirect:/admin/role/roles";
+        return "redirect:/admin/role/list";
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
@@ -72,7 +72,7 @@ public class RoleController {
         r.setDescription(role.getDescription());
         r.setType(role.getType());
         roleService.update(r);
-        return "redirect:/admin/role/roles";
+        return "redirect:/admin/role/list";
     }
 
 }

@@ -25,7 +25,7 @@ public class SubjectController {
     @Autowired
     ISubjectService subjectService;
 
-    @RequestMapping("/subjects")
+    @RequestMapping("/list")
     public String list(Model model) {
         model.addAttribute("datas", subjectService.find());
         return "subject/list";
@@ -50,14 +50,14 @@ public class SubjectController {
         }
 
         subjectService.add(subject);
-        return "redirect:/admin/subject/subjects";
+        return "redirect:/admin/subject/list";
     }
 
     @RequestMapping(value = "/delete/{id}")
     public String delete(@PathVariable int id) {
         // TODO:如果项目还有被使用，则不能删除
         subjectService.delete(id);
-        return "redirect:/admin/subject/subjects";
+        return "redirect:/admin/subject/list";
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
@@ -81,6 +81,6 @@ public class SubjectController {
         oldSubject.setType(subject.getType());
 
         subjectService.update(oldSubject);
-        return "redirect:/admin/subject/subjects";
+        return "redirect:/admin/subject/list";
     }
 }

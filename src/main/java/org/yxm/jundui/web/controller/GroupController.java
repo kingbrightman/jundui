@@ -25,7 +25,7 @@ public class GroupController {
     @Autowired
     private IUserService userService;
 
-    @RequestMapping("/groups")
+    @RequestMapping("/list")
     public String list(Model model) {
         model.addAttribute("datas", groupService.find());
         return "group/list";
@@ -44,7 +44,7 @@ public class GroupController {
             return "group/edit";
         }
         groupService.add(group);
-        return "redirect:/admin/group/groups";
+        return "redirect:/admin/group/list";
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
@@ -64,13 +64,13 @@ public class GroupController {
         g.setName(group.getName());
         g.setParent(group.getParent());
         groupService.update(g);
-        return "redirect:/admin/group/groups";
+        return "redirect:/admin/group/list";
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public String delete(@PathVariable int id) {
         groupService.delete(id);
-        return "redirect:/admin/group/groups";
+        return "redirect:/admin/group/list";
     }
 
     @RequestMapping("/{id}")
@@ -83,6 +83,6 @@ public class GroupController {
     @RequestMapping("/clearUsers/{id}")
     public String clearGroupUsers(@PathVariable int id) {
         groupService.deleteGroupUsers(id);
-        return "redirect:/admin/group/groups";
+        return "redirect:/admin/group/list";
     }
 }

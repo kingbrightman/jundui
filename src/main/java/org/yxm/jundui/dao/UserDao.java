@@ -65,22 +65,22 @@ public class UserDao extends BaseDao<User> implements IUserDao {
                 .setParameter(0, uid).list();
     }
 
-    @Override
-    public UserTrain loadUserTrain(int uid, int tid) {
-        String hql = "select ut from UserTrain ut left join fetch ut.user u " +
-                " left join fetch ut.train t where u.id=? and t.id=?";
-        return (UserTrain) this.getSession().createQuery(hql)
-                .setParameter(0, uid).setParameter(1, tid).uniqueResult();
-    }
+//    @Override
+//    public UserTrain loadUserTrain(int uid, int tid) {
+//        String hql = "select ut from UserTrain ut left join fetch ut.user u " +
+//                " left join fetch ut.train t where u.id=? and t.id=?";
+//        return (UserTrain) this.getSession().createQuery(hql)
+//                .setParameter(0, uid).setParameter(1, tid).uniqueResult();
+//    }
 
-    @Override
-    public void addUserTrain(User user, Train train) {
-        UserTrain ut = this.loadUserTrain(user.getId(), train.getId());
-        if (null != ut) return;
-
-        ut = new UserTrain(user, train);
-        this.getSession().save(ut);
-    }
+//    @Override
+//    public void addUserTrain(User user, Train train) {
+//        UserTrain ut = this.loadUserTrain(user.getId(), train.getId());
+//        if (null != ut) return;
+//
+//        ut = new UserTrain(user, train);
+//        this.getSession().save(ut);
+//    }
 
     @Override
     public UserTrainSubject loadUserTrainSubject(int uid, int tid, int sid) {

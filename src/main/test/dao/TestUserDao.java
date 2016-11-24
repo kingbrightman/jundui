@@ -95,13 +95,6 @@ public class TestUserDao {
     }
 
     @Test
-    public void addUserTrain() {
-        User user = userDao.load(3);
-        Train train = trainDao.load(4);
-        userDao.addUserTrain(user, train);
-    }
-
-    @Test
     public void addUserTrainSubject() {
         User user = userDao.load(3);
         Train train = trainDao.load(4);

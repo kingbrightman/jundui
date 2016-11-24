@@ -20,12 +20,6 @@ public interface IUserDao extends IBaseDao<User> {
 
     List<Role> listUserRoles(int id);
 
-
-    // user train
-    UserTrain loadUserTrain(int uid, int tid);
-
-    void addUserTrain(User user, Train train);
-
     List<Train> listUserTrain(int uid);
 
     UserTrainSubject loadUserTrainSubject(int uid, int tid, int sid);

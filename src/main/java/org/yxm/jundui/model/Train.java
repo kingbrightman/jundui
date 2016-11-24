@@ -1,9 +1,6 @@
 package org.yxm.jundui.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -16,7 +13,10 @@ public class Train {
     private int id;
     private String name;
     private String description;
+    private User createUser;
+
     private Date createDate;
+
 
     public Train() {
     }
@@ -51,6 +51,16 @@ public class Train {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @OneToOne
+    @JoinColumn(name = "create_user")
+    public User getCreateUser() {
+        return createUser;
+    }
+
+    public void setCreateUser(User createUser) {
+        this.createUser = createUser;
     }
 
     public Date getCreateDate() {

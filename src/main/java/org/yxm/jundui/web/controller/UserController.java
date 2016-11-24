@@ -30,7 +30,7 @@ public class UserController {
     @Autowired
     IGroupService groupService;
 
-    @RequestMapping(value = "/users")
+    @RequestMapping(value = "/list")
     public String list(Model model) {
         model.addAttribute("datas", userService.find());
         return "user/list";
@@ -56,13 +56,13 @@ public class UserController {
         }
         userService.add(userDto.getUser(), userDto.getRoleIds());
 
-        return "redirect:/admin/user/users";
+        return "redirect:/admin/user/list";
     }
 
     @RequestMapping(value = "/delete/{id}")
     public String delete(@PathVariable int id) {
         userService.delete(id);
-        return "redirect:/admin/user/users";
+        return "redirect:/admin/user/list";
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
@@ -91,7 +91,7 @@ public class UserController {
 
         userService.update(oldUser, userDto.getRoleIds());
 
-        return "redirect:/admin/user/users";
+        return "redirect:/admin/user/list";
     }
 
 }
