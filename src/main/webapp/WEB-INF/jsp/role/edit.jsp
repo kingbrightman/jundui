@@ -18,9 +18,11 @@
         </tr>
         <tr>
             <td>类型</td>
-            <td><sf:select path="type">
-                <sf:options items="${types}"/>
-            </sf:select></td>
+            <td>
+                <sf:select path="type">
+                    <sf:options items="${types}"/>
+                </sf:select>
+            </td>
         </tr>
         <tr>
             <td colspan="2"><input type="submit" value="提交"> <input type="reset" value="重置"></td>

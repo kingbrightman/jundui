@@ -1,5 +1,8 @@
 package org.yxm.jundui.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -14,8 +17,13 @@ import java.util.Date;
 public class Subject {
 
     private int id;
+
+    @NotEmpty(message = "名称不能为空")
     private String name;
+
     private String description;
+
+    @NotEmpty(message = "类型不能为空")
     private String type;
 
     public Subject() {
