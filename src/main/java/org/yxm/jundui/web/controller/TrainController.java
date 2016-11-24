@@ -7,14 +7,21 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.yxm.jundui.model.Group;
 import org.yxm.jundui.model.Train;
+import org.yxm.jundui.model.TrainLevel;
 import org.yxm.jundui.model.User;
+import org.yxm.jundui.service.IGroupService;
+import org.yxm.jundui.service.ISubjectService;
 import org.yxm.jundui.service.ITrainService;
 import org.yxm.jundui.service.IUserService;
+import org.yxm.jundui.util.EnumUtils;
+import org.yxm.jundui.web.dto.TrainDto;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by yxm on 2016.11.24.
@@ -29,32 +36,60 @@ public class TrainController {
     @Autowired
     IUserService userService;
 
+    @Autowired
+    ISubjectService subjectService;
+
+    @Autowired
+    IGroupService groupService;
+
     @RequestMapping("/list")
     public String list(Model model) {
         model.addAttribute("datas", trainService.find());
         return "train/list";
     }
 
+    private void initAdd(Model model, int gid) {
+        model.addAttribute("subjects", subjectService.list());
+        model.addAttribute("groups", groupService.listChildren(gid));
+        model.addAttribute("levels", EnumUtils.enumProp2NameMap(TrainLevel.class, "name"));
+    }
+
     @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public String add(Model model) {
-        model.addAttribute(new Train());
+    public String add(Model model, HttpServletRequest request) {
+        // TODO: 暂时没有登陆模块，先这样取 loginUser
+        User loginUser = (User) request.getSession().getAttribute("login_user");
+        if (loginUser == null) {
+            loginUser = userService.load(3);
+        }
+
+        TrainDto trainDto = new TrainDto();
+
+
+        model.addAttribute("trainDto", trainDto);
+        initAdd(model, loginUser.getGroup().getId());
+
         return "train/edit";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String add(@Valid Train train, BindingResult br, Model model, HttpServletRequest request) {
+    public String add(@Valid TrainDto trainDto, BindingResult br, Model model, HttpServletRequest request) {
         if (br.hasErrors()) {
             return "train/edit";
         }
 
         User loginUser = (User) request.getSession().getAttribute("login_user");
         if (loginUser == null) {
-            loginUser = userService.load(2);
+            loginUser = userService.load(3);
         }
-        train.setCreateUser(loginUser);
-        train.setCreateDate(new Date());
 
+        Train train = trainDto.getTrain();
+        train.setCreateDate(new Date());
+        train.setCreateUser(loginUser);
         trainService.add(train);
+
+        trainService.updateTrainSubjects(train, trainDto.getSubjects());
+        trainService.updateTrainGroups(train, trainDto.getGroups());
+
         return "redirect:/admin/train/list";
     }
 
@@ -67,22 +102,53 @@ public class TrainController {
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
-    public String update(@PathVariable int id, Model model) {
+    public String update(@PathVariable int id, Model model, HttpServletRequest request) {
         Train train = trainService.load(id);
-        model.addAttribute(train);
+
+        // 如果创建用户和当前用户不一样，不能更改
+        User loginUser = (User) request.getSession().getAttribute("login_user");
+        if (loginUser == null) {
+            loginUser = userService.load(3);
+        }
+
+        if (train.getCreateUser().getId() != loginUser.getId()) {
+            // TODO: 做出提示
+            return "redirect:/admin/train/list";
+        }
+
+        List<Integer> subjects = trainService.loadTrainSubjects(train);
+        List<Integer> groups = trainService.loadTrainGroups(train);
+        TrainDto trainDto = new TrainDto(train, subjects, groups);
+
+        initAdd(model, loginUser.getGroup().getId());
+
+        model.addAttribute("trainDto", trainDto);
         return "train/edit";
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
-    public String update(@PathVariable int id, @Valid Train train, BindingResult br, Model model) {
+    public String update(@PathVariable int id, @Valid TrainDto trainDto, BindingResult br, Model model,
+                         HttpServletRequest request) {
+        // 如果创建用户和当前用户不一样，不能更改
+        User loginUser = (User) request.getSession().getAttribute("login_user");
+        if (loginUser == null) {
+            loginUser = userService.load(3);
+        }
+
         if (br.hasErrors()) {
+            initAdd(model, loginUser.getGroup().getId());
             return "train/edit";
         }
 
         Train oldTrain = trainService.load(id);
-        oldTrain.setName(train.getName());
-        oldTrain.setDescription(train.getDescription());
+        oldTrain.setName(trainDto.getName());
+        oldTrain.setDescription(trainDto.getDescription());
+        oldTrain.setLevel(trainDto.getLevel());
         trainService.update(oldTrain);
+
+        trainService.updateTrainSubjects(oldTrain, trainDto.getSubjects());
+        trainService.updateTrainGroups(oldTrain, trainDto.getGroups());
+
         return "redirect:/admin/train/list";
     }
 

@@ -18,4 +18,8 @@ public interface IGroupDao extends IBaseDao<Group> {
     void deleteGroupUsers(int id);
 
     List<User> listGroupUsers(int gid);
+
+    List<Integer> listChildrenIds(int gid);
+
+    List<Group> listChildren(int gid);
 }

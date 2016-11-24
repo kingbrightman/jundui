@@ -60,4 +60,16 @@ public class GroupService implements IGroupService {
     public List<User> listGroupUsers(int gid) {
         return groupDao.listGroupUsers(gid);
     }
+
+    @Override
+    public List<Integer> listChildrenIds(int gid) {
+        return groupDao.listChildrenIds(gid);
+    }
+
+    @Override
+    public List<Group> listChildren(int gid) {
+        return groupDao.listChildren(gid);
+    }
+
+
 }

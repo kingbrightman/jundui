@@ -28,12 +28,12 @@ public class TestSubjectDao {
 
     @Test
     public void add() {
-        subjectDao.add(new Subject("跳高", "跳跃高度", "float"));
-        subjectDao.add(new Subject("跳远", "跳跃长度", "float"));
-        subjectDao.add(new Subject("引体向上", "次数", "int"));
-        subjectDao.add(new Subject("100米", "跑步", "time"));
-        subjectDao.add(new Subject("400米", "跑步", "time"));
-        subjectDao.add(new Subject("五公里越野", "跑步", "time"));
+//        subjectDao.updateTrainSubjects(new Subject("跳高", "跳跃高度", "float"));
+//        subjectDao.updateTrainSubjects(new Subject("跳远", "跳跃长度", "float"));
+//        subjectDao.updateTrainSubjects(new Subject("引体向上", "次数", "int"));
+//        subjectDao.updateTrainSubjects(new Subject("100米", "跑步", "time"));
+//        subjectDao.updateTrainSubjects(new Subject("400米", "跑步", "time"));
+//        subjectDao.updateTrainSubjects(new Subject("五公里越野", "跑步", "time"));
     }
 
     @Test

@@ -33,7 +33,7 @@ public class RoleDao extends BaseDao<Role> implements IRoleDao {
 
     @Override
     public void deleteRoleUsers(int id) {
-        String hql = "delete UserRole ur where ur.role.id = ?";
+        String hql = "deleteTrainSubject UserRole ur where ur.role.id = ?";
         this.updateByHql(hql, id);
     }
 }

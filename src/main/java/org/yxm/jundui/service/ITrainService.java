@@ -10,9 +10,9 @@ import java.util.List;
  */
 public interface ITrainService {
 
-    public List<Train> list();
+    List<Train> list();
 
-    public Pager<Train> find();
+    Pager<Train> find();
 
     void add(Train train);
 
@@ -21,4 +21,12 @@ public interface ITrainService {
     Train load(int id);
 
     void update(Train train);
+
+    void updateTrainSubjects(Train train, Integer[] subjects);
+
+    void updateTrainGroups(Train train, Integer[] groups);
+
+    List<Integer> loadTrainSubjects(Train train);
+
+    List<Integer> loadTrainGroups(Train train);
 }

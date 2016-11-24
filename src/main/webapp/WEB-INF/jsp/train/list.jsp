@@ -15,6 +15,7 @@
         <td>名称</td>
         <td>描述</td>
         <td>创建人</td>
+        <td>等级</td>
         <td>创建日期</td>
         <td>操作</td>
     </tr>
@@ -26,6 +27,7 @@
             <td><a href="show/${train.id}">${train.name}</a></td>
             <td>${train.description}</td>
             <td>${train.createUser.name}</td>
+            <td>${train.level.name}</td>
             <td>${train.createDate}</td>
             <td>
                 <a href="update/${train.id}">更新</a>

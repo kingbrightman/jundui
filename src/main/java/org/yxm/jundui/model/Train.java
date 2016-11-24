@@ -1,7 +1,10 @@
 package org.yxm.jundui.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by yxm on 2016.11.15.
@@ -11,8 +14,14 @@ import java.util.Date;
 public class Train {
 
     private int id;
+
+    @NotEmpty(message = "名称不能为空")
     private String name;
+
     private String description;
+
+    private TrainLevel level;
+
     private User createUser;
 
     private Date createDate;
@@ -69,5 +78,15 @@ public class Train {
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "level")
+    public TrainLevel getLevel() {
+        return level;
+    }
+
+    public void setLevel(TrainLevel level) {
+        this.level = level;
     }
 }

@@ -3,10 +3,7 @@ package org.yxm.jundui.model;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -23,16 +20,14 @@ public class Subject {
 
     private String description;
 
-    @NotEmpty(message = "类型不能为空")
-    private String type;
+    private SubjectType type;
 
     public Subject() {
     }
 
-    public Subject(String name, String description, String type) {
+    public Subject(String name, String description) {
         this.name = name;
         this.description = description;
-        this.type = type;
     }
 
     @Id
@@ -61,11 +56,13 @@ public class Subject {
         this.description = description;
     }
 
-    public String getType() {
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type")
+    public SubjectType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(SubjectType type) {
         this.type = type;
     }
 }

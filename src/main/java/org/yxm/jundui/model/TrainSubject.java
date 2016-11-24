@@ -16,6 +16,11 @@ public class TrainSubject {
     public TrainSubject() {
     }
 
+    public TrainSubject(Train train, Subject subject) {
+        this.train = train;
+        this.subject = subject;
+    }
+
     @Id
     @GeneratedValue
     public int getId() {

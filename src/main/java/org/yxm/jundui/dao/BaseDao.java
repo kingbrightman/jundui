@@ -17,7 +17,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.yxm.jundui.model.Pager;
+import org.yxm.jundui.model.Subject;
 import org.yxm.jundui.model.SystemContext;
+import org.yxm.jundui.model.Train;
 
 /**
  * @author Administrator
@@ -309,5 +311,4 @@ public class BaseDao<T> implements IBaseDao<T> {
     public Object queryObjectByAlias(String hql, Map<String, Object> alias) {
         return this.queryObject(hql, null, alias);
     }
-
 }

@@ -35,7 +35,7 @@ public class UserDao extends BaseDao<User> implements IUserDao {
 
     @Override
     public void deleteUserRole(int uid, Integer rid) {
-        String hql = "delete from UserRole ur where ur.user.id = ? and ur.role.id = ?";
+        String hql = "deleteTrainSubject from UserRole ur where ur.user.id = ? and ur.role.id = ?";
         this.updateByHql(hql, new Integer[]{uid, rid});
     }
 

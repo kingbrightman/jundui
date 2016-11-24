@@ -16,6 +16,11 @@ public class TrainGroup {
     public TrainGroup() {
     }
 
+    public TrainGroup(Train train, Group group) {
+        this.train = train;
+        this.group = group;
+    }
+
     @Id
     @GeneratedValue
     public int getId() {
