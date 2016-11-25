@@ -96,12 +96,12 @@ public class TrainService implements ITrainService {
     }
 
     @Override
-    public List<Integer> loadTrainSubjects(Train train) {
+    public List<Integer> listTrainSubjectIds(Train train) {
         return trainDao.loadTrainSubjectIds(train.getId());
     }
 
     @Override
-    public List<Integer> loadTrainGroups(Train train) {
-        return trainDao.loadTrainGroupIds(train.getId());
+    public List<Integer> listTrainGroupIds(Train train) {
+        return trainDao.listTrainGroupIds(train.getId());
     }
 }

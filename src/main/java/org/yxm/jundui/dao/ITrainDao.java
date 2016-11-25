@@ -32,5 +32,5 @@ public interface ITrainDao extends IBaseDao<Train> {
 
     TrainGroup loadTrainGroup(Train train, Group group);
 
-    List<Integer> loadTrainGroupIds(int id);
+    List<Integer> listTrainGroupIds(int id);
 }

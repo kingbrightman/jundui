@@ -30,9 +30,10 @@ public interface IUserDao extends IBaseDao<User> {
 
 
     // user group
-    void addUserGroup(User user, Group group);
 
     List<User> list();
 
     Pager<User> find();
+
+    List<User> listGroupUsers(int gid);
 }

@@ -11,6 +11,8 @@ import java.util.List;
 public interface ISubjectService {
     List<Subject> list();
 
+    List<Subject> list(Integer[] ids);
+
     Pager<Subject> find();
 
     void add(Subject subject);

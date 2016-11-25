@@ -13,4 +13,6 @@ public interface ISubjectDao extends IBaseDao<Subject> {
     List<Subject> list();
 
     Pager<Subject> find();
+
+    List<Subject> list(Integer[] ids);
 }

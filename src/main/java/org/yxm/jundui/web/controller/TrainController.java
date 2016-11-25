@@ -1,5 +1,6 @@
 package org.yxm.jundui.web.controller;
 
+import com.sun.tools.javac.util.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,7 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.yxm.jundui.model.Group;
+import org.yxm.jundui.model.Subject;
 import org.yxm.jundui.model.Train;
 import org.yxm.jundui.model.TrainLevel;
 import org.yxm.jundui.model.User;
@@ -20,8 +21,7 @@ import org.yxm.jundui.web.dto.TrainDto;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by yxm on 2016.11.24.
@@ -42,6 +42,8 @@ public class TrainController {
     @Autowired
     IGroupService groupService;
 
+    private static final int LOGINUSER_ID = 2;
+
     @RequestMapping("/list")
     public String list(Model model) {
         model.addAttribute("datas", trainService.find());
@@ -59,7 +61,7 @@ public class TrainController {
         // TODO: 暂时没有登陆模块，先这样取 loginUser
         User loginUser = (User) request.getSession().getAttribute("login_user");
         if (loginUser == null) {
-            loginUser = userService.load(3);
+            loginUser = userService.load(LOGINUSER_ID);
         }
 
         TrainDto trainDto = new TrainDto();
@@ -79,7 +81,7 @@ public class TrainController {
 
         User loginUser = (User) request.getSession().getAttribute("login_user");
         if (loginUser == null) {
-            loginUser = userService.load(3);
+            loginUser = userService.load(LOGINUSER_ID);
         }
 
         Train train = trainDto.getTrain();
@@ -108,7 +110,7 @@ public class TrainController {
         // 如果创建用户和当前用户不一样，不能更改
         User loginUser = (User) request.getSession().getAttribute("login_user");
         if (loginUser == null) {
-            loginUser = userService.load(3);
+            loginUser = userService.load(LOGINUSER_ID);
         }
 
         if (train.getCreateUser().getId() != loginUser.getId()) {
@@ -116,8 +118,8 @@ public class TrainController {
             return "redirect:/admin/train/list";
         }
 
-        List<Integer> subjects = trainService.loadTrainSubjects(train);
-        List<Integer> groups = trainService.loadTrainGroups(train);
+        List<Integer> subjects = trainService.listTrainSubjectIds(train);
+        List<Integer> groups = trainService.listTrainGroupIds(train);
         TrainDto trainDto = new TrainDto(train, subjects, groups);
 
         initAdd(model, loginUser.getGroup().getId());
@@ -132,7 +134,7 @@ public class TrainController {
         // 如果创建用户和当前用户不一样，不能更改
         User loginUser = (User) request.getSession().getAttribute("login_user");
         if (loginUser == null) {
-            loginUser = userService.load(3);
+            loginUser = userService.load(LOGINUSER_ID);
         }
 
         if (br.hasErrors()) {
@@ -150,6 +152,38 @@ public class TrainController {
         trainService.updateTrainGroups(oldTrain, trainDto.getGroups());
 
         return "redirect:/admin/train/list";
+    }
+
+    private void initShow(Model model, Train train) {
+        // train所参加的部门，包含子部门
+        List<Integer> groupIds = trainService.listTrainGroupIds(train);
+        groupIds = groupService.listGroupsChildrenIds(groupIds);
+        Collections.sort(groupIds); // 让结果按group分好
+        List<Integer> subjectIds = trainService.listTrainSubjectIds(train);
+
+        List<User> users = userService.listGroupsUsers(list2Array(groupIds));
+        List<Subject> subjects = subjectService.list(list2Array(subjectIds));
+
+        model.addAttribute("train", train);
+        model.addAttribute("users", users);
+        model.addAttribute("subjects", subjects);
+    }
+
+    @RequestMapping(value = "/show/{id}")
+    public String show(@PathVariable int id, Model model) {
+        Train train = trainService.load(id);
+
+        initShow(model, train);
+
+        return "train/show";
+    }
+
+    private Integer[] list2Array(List<Integer> list) {
+        Integer[] arr = new Integer[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            arr[i] = list.get(i);
+        }
+        return arr;
     }
 
 

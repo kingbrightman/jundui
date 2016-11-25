@@ -26,7 +26,7 @@ public interface ITrainService {
 
     void updateTrainGroups(Train train, Integer[] groups);
 
-    List<Integer> loadTrainSubjects(Train train);
+    List<Integer> listTrainSubjectIds(Train train);
 
-    List<Integer> loadTrainGroups(Train train);
+    List<Integer> listTrainGroupIds(Train train);
 }

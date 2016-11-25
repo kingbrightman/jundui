@@ -1,5 +1,7 @@
 package org.yxm.jundui.model;
 
+import org.apache.tools.ant.filters.LineContains;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -89,5 +91,18 @@ public class User {
 
     public void setGroup(Group group) {
         this.group = group;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (super.equals(obj)) return true;
+
+        if (obj instanceof User) {
+            User tempUser = (User) obj;
+            if (tempUser.getId() == this.getId()) {
+                return true;
+            }
+        }
+        return false;
     }
 }

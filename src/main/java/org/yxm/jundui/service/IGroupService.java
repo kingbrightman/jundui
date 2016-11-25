@@ -31,4 +31,6 @@ public interface IGroupService {
     List<Integer> listChildrenIds(int gid);
 
     List<Group> listChildren(int gid);
+
+    List<Integer> listGroupsChildrenIds(List<Integer> groupIds);
 }

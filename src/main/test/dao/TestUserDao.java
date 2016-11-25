@@ -119,17 +119,5 @@ public class TestUserDao {
         }
     }
 
-    @Test
-    public void addUserGroup() {
-        Group d = groupDao.load(1);
-        User u1 = userDao.load(4);
-        User u2 = userDao.load(5);
-        User u3 = userDao.load(6);
-        User u4 = userDao.load(7);
 
-        userDao.addUserGroup(u1, d);
-        userDao.addUserGroup(u2, d);
-        userDao.addUserGroup(u3, d);
-        userDao.addUserGroup(u4, d);
-    }
 }

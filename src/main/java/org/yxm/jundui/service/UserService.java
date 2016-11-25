@@ -1,17 +1,15 @@
 package org.yxm.jundui.service;
 
-import com.sun.tools.javac.util.ArrayUtils;
+import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.yxm.jundui.dao.IGroupDao;
 import org.yxm.jundui.dao.IRoleDao;
 import org.yxm.jundui.dao.IUserDao;
-import org.yxm.jundui.dao.UserDao;
-import org.yxm.jundui.model.Role;
 import org.yxm.jundui.model.User;
 import org.yxm.jundui.model.Pager;
-import org.yxm.jundui.model.User;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -76,11 +74,6 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void addUserGroup(int uid, int gid) {
-        userDao.addUserGroup(userDao.load(uid), groupDao.load(gid));
-    }
-
-    @Override
     public void update(User user, Integer[] roleIds) {
         List<Integer> oldRoleIds = userDao.listUserRoleIds(user.getId());
 
@@ -108,5 +101,26 @@ public class UserService implements IUserService {
     @Override
     public List<Integer> listUserRoleIds(int uid) {
         return userDao.listUserRoleIds(uid);
+    }
+
+
+    @Override
+    public List<User> listGroupsUsers(Integer[] groupIds) {
+        List<User> users = new ArrayList<>();
+        for (Integer gid : groupIds) {
+            List<User> temp = this.listGroupUsers(gid);
+
+            for (User u : temp) {
+                if (!users.contains(u)) {
+                    users.add(u);
+                }
+            }
+        }
+        return users;
+    }
+
+    @Override
+    public List<User> listGroupUsers(int gid) {
+        return userDao.listGroupUsers(gid);
     }
 }

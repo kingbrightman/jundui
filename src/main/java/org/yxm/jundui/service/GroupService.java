@@ -8,6 +8,7 @@ import org.yxm.jundui.model.Group;
 import org.yxm.jundui.model.Pager;
 import org.yxm.jundui.model.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -69,6 +70,20 @@ public class GroupService implements IGroupService {
     @Override
     public List<Group> listChildren(int gid) {
         return groupDao.listChildren(gid);
+    }
+
+    @Override
+    public List<Integer> listGroupsChildrenIds(List<Integer> groupIds) {
+        List<Integer> allGroupIds = new ArrayList<>(groupIds);
+        for (int i = 0; i < groupIds.size(); i++) {
+            List<Integer> tempGroupIds = groupDao.listChildrenIds(groupIds.get(i));
+            for (int j = 0; j < tempGroupIds.size(); j++) {
+                if (!groupIds.contains(tempGroupIds.get(j))) {
+                    allGroupIds.add(tempGroupIds.get(j));
+                }
+            }
+        }
+        return allGroupIds;
     }
 
 

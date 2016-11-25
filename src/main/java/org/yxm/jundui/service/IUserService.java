@@ -26,11 +26,14 @@ public interface IUserService {
 
     void addUserRole(int uid, int rid);
 
-    void addUserGroup(int uid, int gid);
-
     void update(User user, Integer[] roleIds);
 
     void deleteUserRole(int uid, Integer rid);
 
     List<Integer> listUserRoleIds(int uid);
+
+
+    List<User> listGroupsUsers(Integer[] groupIds);
+
+    List<User> listGroupUsers(int gid);
 }

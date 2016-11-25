@@ -23,6 +23,11 @@ public class SubjectService implements ISubjectService {
     }
 
     @Override
+    public List<Subject> list(Integer[] ids) {
+        return subjectDao.list(ids);
+    }
+
+    @Override
     public Pager<Subject> find() {
         return subjectDao.find();
     }
