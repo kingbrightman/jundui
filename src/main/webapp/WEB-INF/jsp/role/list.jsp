@@ -19,6 +19,7 @@
     </tr>
     </thead>
     <tbody>
+
     <c:forEach items="${datas.datas}" var="role">
         <tr>
             <td>${role.id}</td>
@@ -31,6 +32,7 @@
             </td>
         </tr>
     </c:forEach>
+
     </tbody>
 </table>
 
