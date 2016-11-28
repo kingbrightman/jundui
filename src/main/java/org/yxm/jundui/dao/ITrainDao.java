@@ -24,8 +24,6 @@ public interface ITrainDao extends IBaseDao<Train> {
     List<Integer> loadTrainSubjectIds(int id);
 
     // train group
-    List<Integer> getGroupIds(int tid);
-
     void addTrainGroup(Train train, Group group);
 
     void deleteTrainGroup(Train train, Group group);

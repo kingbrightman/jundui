@@ -61,11 +61,6 @@ public class TrainDao extends BaseDao<Train> implements ITrainDao {
         return this.getSession().createQuery(hql).list();
     }
 
-    @Override
-    public List<Integer> getGroupIds(int tid) {
-        String hql = "select tg.id from TrainGroup tg where tg.train.id = " + tid;
-        return this.getSession().createQuery(hql).list();
-    }
 
     @Override
     public void addTrainGroup(Train train, Group group) {

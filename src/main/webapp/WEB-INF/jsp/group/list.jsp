@@ -25,7 +25,7 @@
             <td>${group.id}</td>
             <td>${group.name}</td>
             <td>${group.description}</td>
-            <td>${group.parent.id}</td>
+            <td>${group.parent.name}</td>
             <td>
                 <a href="update/${group.id}">修改</a>
                 <a href="delete/${group.id}">删除</a>

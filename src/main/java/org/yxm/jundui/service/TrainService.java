@@ -79,7 +79,7 @@ public class TrainService implements ITrainService {
 
     @Override
     public void updateTrainGroups(Train train, Integer[] groups) {
-        List<Integer> oldGroupIds = trainDao.getGroupIds(train.getId());
+        List<Integer> oldGroupIds = trainDao.listTrainGroupIds(train.getId());
 
         for(Integer id: groups){
             if( !oldGroupIds.contains(id)){

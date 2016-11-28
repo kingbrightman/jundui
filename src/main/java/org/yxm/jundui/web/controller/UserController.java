@@ -1,5 +1,6 @@
 package org.yxm.jundui.web.controller;
 
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,10 +10,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.yxm.jundui.model.User;
-import org.yxm.jundui.web.dto.UserDto;
 import org.yxm.jundui.service.IGroupService;
 import org.yxm.jundui.service.IRoleService;
 import org.yxm.jundui.service.IUserService;
+import org.yxm.jundui.web.dto.UserDto;
 
 import javax.validation.Valid;
 
@@ -71,13 +72,17 @@ public class UserController {
         UserDto userDto = new UserDto(user, userService.listUserRoleIds(user.getId()));
 
         model.addAttribute("userDto", userDto);
+        model.addAttribute("isUpdate", true);
         initAdd(model);
         return "user/edit";
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
-    public String update(@PathVariable int id, @Valid UserDto userDto, BindingResult br) {
+    public String update(@PathVariable int id, @Valid @ModelAttribute("userDto") UserDto userDto, BindingResult br
+            , Model model) {
         if (br.hasErrors()) {
+            model.addAttribute("isUpdate", true);
+            initAdd(model);
             return "user/edit";
         }
 
@@ -89,6 +94,7 @@ public class UserController {
         oldUser.setSex(newUser.getSex());
         oldUser.setGroup(newUser.getGroup());
 
+        userService.update(oldUser);
         userService.update(oldUser, userDto.getRoleIds());
 
         return "redirect:/admin/user/list";

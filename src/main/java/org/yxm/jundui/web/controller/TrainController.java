@@ -1,6 +1,5 @@
 package org.yxm.jundui.web.controller;
 
-import com.sun.tools.javac.util.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,12 +15,16 @@ import org.yxm.jundui.service.IGroupService;
 import org.yxm.jundui.service.ISubjectService;
 import org.yxm.jundui.service.ITrainService;
 import org.yxm.jundui.service.IUserService;
+import org.yxm.jundui.util.ArrayUtils;
 import org.yxm.jundui.util.EnumUtils;
 import org.yxm.jundui.web.dto.TrainDto;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by yxm on 2016.11.24.
@@ -146,13 +149,17 @@ public class TrainController {
         oldTrain.setName(trainDto.getName());
         oldTrain.setDescription(trainDto.getDescription());
         oldTrain.setLevel(trainDto.getLevel());
-        trainService.update(oldTrain);
 
+        trainService.update(oldTrain);
         trainService.updateTrainSubjects(oldTrain, trainDto.getSubjects());
-        trainService.updateTrainGroups(oldTrain, trainDto.getGroups());
+
+        //TODO: 在UI上做这个逻辑控制，选择了父节点，则选择所有子节点
+        List<Integer> groupAndChildIds = groupService.listGroupsChildrenIds(Arrays.asList(trainDto.getGroups()));
+        trainService.updateTrainGroups(oldTrain, ArrayUtils.list2Array(groupAndChildIds));
 
         return "redirect:/admin/train/list";
     }
+
 
     private void initShow(Model model, Train train) {
         // train所参加的部门，包含子部门

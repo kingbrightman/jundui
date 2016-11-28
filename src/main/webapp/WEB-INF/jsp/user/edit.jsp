@@ -1,5 +1,6 @@
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -15,7 +16,7 @@
         </tr>
         <tr>
             <td>昵称</td>
-            <td><sf:input path="username"/><sf:errors path="name"/></td>
+            <td><sf:input path="username"/></td>
         </tr>
         <tr>
             <td>性别</td>
@@ -26,12 +27,21 @@
         </tr>
         <tr>
             <td>密码</td>
-            <td><sf:password path="password"/></td>
+            <c:if test="${isUpdate}">
+                <td><sf:password disabled="true" path="password"/><sf:errors path="password"/></td>
+            </c:if>
+            <c:if test="${!isUpdate}">
+                <td><sf:password path="password"/><sf:errors path="password"/></td>
+            </c:if>
+
         </tr>
         <tr>
             <td>所在部门</td>
             <td>
-                <sf:select path="group.id" items="${groups}" itemLabel="name" itemValue="id"/>
+                <sf:select path="group.id">
+                    <sf:options items="${groups}" itemLabel="name" itemValue="id"/>
+                </sf:select>
+                <sf:errors path="group.id"/>
             </td>
         </tr>
         <tr>

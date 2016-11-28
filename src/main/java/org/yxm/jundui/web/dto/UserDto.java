@@ -13,16 +13,14 @@ import java.util.List;
  */
 public class UserDto {
     private int id;
-    @NotEmpty(message = "名字不能为空")
-    @NotNull(message = "名字不能为空")
     private String username;
     private String password;
 
     @NotEmpty(message = "名字不能为空")
-    @NotNull(message = "名字不能为空")
     private String name;
     private String sex;
     private Date createDate;
+
     private Group group;
 
     private Integer[] roleIds;

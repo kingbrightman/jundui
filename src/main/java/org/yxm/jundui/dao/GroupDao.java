@@ -40,11 +40,11 @@ public class GroupDao extends BaseDao<Group> implements IGroupDao {
         List<Integer> ids = new ArrayList<>();
         ids.add(gid);
 
-        String hql = "select g.id from Group g where g.id= ? or g.parent.id = ?";
+        String hql = "select g.id from Group g where g.parent.id = ?";
         for (int i = 0; i < ids.size(); i++) {
             int pid = ids.get(i);
             List<Integer> tempIds = this.getSession().createQuery(hql)
-                    .setParameter(0, pid).setParameter(1, pid).list();
+                    .setParameter(0, pid).list();
 
             for (Integer tempId : tempIds) {
                 if (!ids.contains(tempId)) {
