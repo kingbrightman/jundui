@@ -5,6 +5,10 @@
     <title>Title</title>
 </head>
 <body>
+<%
+    String contextPaht = request.getContextPath();
+%>
+
 Train:
 <table border="1px solid #000">
     <c:forEach items="users" var="user">
@@ -33,7 +37,7 @@ Subjects:
     <c:forEach items="${subjects}" var="subject">
         <tr>
             <td>${subject.id}</td>
-            <td>${subject.name}</td>
+            <td><a href="<%=contextPaht%>/admin/grade/update/${train.id}/${subject.id}">${subject.name}</a></td>
         </tr>
     </c:forEach>
 </table>

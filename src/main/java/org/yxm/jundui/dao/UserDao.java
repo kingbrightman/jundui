@@ -71,19 +71,19 @@ public class UserDao extends BaseDao<User> implements IUserDao {
     }
 
     @Override
-    public UserTrainSubject loadUserTrainSubject(int uid, int tid, int sid) {
+    public Grade loadUserTrainSubject(int uid, int tid, int sid) {
         String hql = "select uts from UserTrainSubject uts left join fetch uts.user u " +
                 " left join fetch uts.train t left join fetch  uts.subject s where u.id=? and t.id=? and s.id=?";
-        return (UserTrainSubject) this.getSession().createQuery(hql)
+        return (Grade) this.getSession().createQuery(hql)
                 .setParameter(0, uid).setParameter(1, tid).setParameter(2, sid).uniqueResult();
     }
 
     @Override
     public void addUserTrainSubject(User user, Train train, Subject subject) {
-        UserTrainSubject uts = this.loadUserTrainSubject(user.getId(), train.getId(), subject.getId());
+        Grade uts = this.loadUserTrainSubject(user.getId(), train.getId(), subject.getId());
         if (null != uts) return;
 
-        uts = new UserTrainSubject();
+        uts = new Grade();
         uts.setUser(user);
         uts.setTrain(train);
         uts.setSubject(subject);
@@ -91,7 +91,7 @@ public class UserDao extends BaseDao<User> implements IUserDao {
     }
 
     @Override
-    public List<UserTrainSubject> listUserTrainSubject(int uid) {
+    public List<Grade> listUserTrainSubject(int uid) {
         String hql = "select uts from UserTrainSubject uts where uts.user.id = ?";
 
         return this.getSession().createQuery(hql)

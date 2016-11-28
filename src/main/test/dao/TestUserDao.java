@@ -112,8 +112,8 @@ public class TestUserDao {
 
     @Test
     public void getUserTrainSubject() {
-        List<UserTrainSubject> list = userDao.listUserTrainSubject(3);
-        for (UserTrainSubject temp : list) {
+        List<Grade> list = userDao.listUserTrainSubject(3);
+        for (Grade temp : list) {
             logger.debug(temp.getTrain().getName() + "," + temp.getSubject().getName() +
                     "," + temp.getUser().getName());
         }

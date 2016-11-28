@@ -168,8 +168,8 @@ public class TrainController {
         Collections.sort(groupIds); // 让结果按group分好
         List<Integer> subjectIds = trainService.listTrainSubjectIds(train);
 
-        List<User> users = userService.listGroupsUsers(list2Array(groupIds));
-        List<Subject> subjects = subjectService.list(list2Array(subjectIds));
+        List<User> users = userService.listGroupsUsers(ArrayUtils.list2Array(groupIds));
+        List<Subject> subjects = subjectService.list(ArrayUtils.list2Array(subjectIds));
 
         model.addAttribute("train", train);
         model.addAttribute("users", users);
@@ -184,14 +184,5 @@ public class TrainController {
 
         return "train/show";
     }
-
-    private Integer[] list2Array(List<Integer> list) {
-        Integer[] arr = new Integer[list.size()];
-        for (int i = 0; i < list.size(); i++) {
-            arr[i] = list.get(i);
-        }
-        return arr;
-    }
-
 
 }

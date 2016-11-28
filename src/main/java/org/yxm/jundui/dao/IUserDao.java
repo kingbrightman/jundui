@@ -22,11 +22,11 @@ public interface IUserDao extends IBaseDao<User> {
 
     List<Train> listUserTrain(int uid);
 
-    UserTrainSubject loadUserTrainSubject(int uid, int tid, int sid);
+    Grade loadUserTrainSubject(int uid, int tid, int sid);
 
     void addUserTrainSubject(User user, Train train, Subject subject);
 
-    List<UserTrainSubject> listUserTrainSubject(int uid);
+    List<Grade> listUserTrainSubject(int uid);
 
 
     // user group

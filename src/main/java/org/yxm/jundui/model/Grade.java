@@ -1,25 +1,34 @@
 package org.yxm.jundui.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by yxm on 2016.11.15.
  */
 @Entity
-@Table(name = "t_user_train_subject")
-public class UserTrainSubject {
+@Table(name = "t_grade")
+public class Grade {
 
     private int id;
+    @NotNull
     private User user;
+    @NotNull
     private Train train;
+    @NotNull
     private Subject subject;
-    private String content;
-    private String grade;
 
-    public UserTrainSubject() {
+    private String content;
+    private String score;
+
+    public Grade() {
     }
 
-
+    public Grade(Train train, Subject subject, User user) {
+        this.train = train;
+        this.subject = subject;
+        this.user = user;
+    }
 
     @Id
     @GeneratedValue
@@ -69,11 +78,11 @@ public class UserTrainSubject {
         this.content = content;
     }
 
-    public String getGrade() {
-        return grade;
+    public String getScore() {
+        return score;
     }
 
-    public void setGrade(String grade) {
-        this.grade = grade;
+    public void setScore(String score) {
+        this.score = score;
     }
 }
