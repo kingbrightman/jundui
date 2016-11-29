@@ -17,6 +17,7 @@ import org.yxm.jundui.web.dto.GradeDto;
 
 import javax.servlet.http.HttpServletRequest;
 import java.rmi.server.UID;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -34,6 +35,8 @@ public class GradeController {
     IUserService userService;
     @Autowired
     IGradeService gradeService;
+    @Autowired
+    IGroupService groupService;
 
     @RequestMapping(value = "/update/{tid}/{sid}")
     public String update(@PathVariable int tid, @PathVariable int sid, Model model) {
@@ -43,6 +46,8 @@ public class GradeController {
         model.addAttribute(subject);
 
         List<Integer> groupIds = trainService.listTrainGroupIds(train);
+        groupIds = groupService.listGroupsChildrenIds(groupIds);
+        Collections.sort(groupIds);
         List<User> users = userService.listGroupsUsers(ArrayUtils.list2Array(groupIds));
 
         List<Grade> grades = gradeService.initAndListUsersGrade(train, subject, users);
