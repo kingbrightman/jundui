@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>groups</title>
+
+    <link rel="stylesheet" href="/resources/css/temp.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+</head>
+<body>
+
+<nav class="navbar navbar-default" role="navigation"  >
+    <div class="container-fluid" style="background-color: #E8E8E8;" >
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#" style="color:#006600; font-size: 30px; font-family:'Microsoft Yahei', '微软雅黑', Arial, sans-serif; ">军队管理系统</a>
+        </div>
+    </div>
+</nav><!--顶部标题栏-->
+
+<div class="container-fluid all">
+    <div class="sidebar">
+        <ul class="nav">
+            <li><a href="#">group</a></li>
+            <li><a href="#">role</a></li>
+            <li><a href="#">subject</a></li>
+            <li><a href="#">train</a></li>
+            <li><a href="#">user</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="maincontent row">
+    <ul class="breadcrumb">
+        <li class="active">group</li>
+    </ul>
+    <a href="" class="btn btn-default btn-lg  btn-sm" role="button">添加</a>
+    <div class="col-sm-12">
+        <table border="1px solid #000" class="table table-hover" style="text-align: center;">
+            <thead>
+            <tr>
+
+                <td>ID</td>
+                <td>名称</td>
+                <td>描述</td>
+                <td>上级</td>
+                <td>操作</td>
+            </tr>
+            </thead>
+            <tbody>
+
+            <c:forEach items="${datas.datas}" var="group">
+                <tr>
+                    <td>${group.id}</td>
+                    <td>${group.name}</td>
+                    <td>${group.description}</td>
+                    <td>${group.parent.id}</td>
+                    <td>
+                        <a href="update/${group.id}" class="btn btn-default btn-lg  btn-xs" role="button">修改</a>
+                        <a href="delete/${group.id}" class="btn btn-default btn-lg  btn-xs" role="button">删除</a>
+                    </td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
+
+    <nav style="margin:0 auto; width:300px;">
+        <ul class="pagination" >
+            <li><a href="#">&laquo;</a></li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#">&raquo;</a></li>
+        </ul>
+    </nav><!--分页-->
+</div>
+
+
+
+
+</body>
+
+</html>
