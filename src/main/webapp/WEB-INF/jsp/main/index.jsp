@@ -2,26 +2,35 @@
 <html>
 <head>
     <title>后台管理首页</title>
+
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/temp.css">
+
 </head>
 <body>
 
-<%
-    String contextPath = request.getContextPath();
-%>
-
 <div id="container">
-    <div id="top" style="width: 100%; height: 100px; border: 1px solid #000">
-        <h1>后台管理首页</h1>
-    </div>
-    <div id="middle" style="width: 100%; height: 800px;">
-        <div id="left" style="float: left; width: 20%; height: 100%; border: 1px solid #000;">
-            <iframe src="<%=contextPath%>/admin/main/index_left" style="border:0px;"></iframe>
-        </div>
 
-        <div id="right" style=" float: left; width: 79%; height: 100%; border: 1px solid #000;">
-            <iframe name="content" style="border: 0px; width: 100%; height: 100%;"></iframe>
+    <!--顶部标题栏-->
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid" style="background-color: #E8E8E8;">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#"
+                   style="color:#006600; font-size: 30px; font-family:'Microsoft Yahei', '微软雅黑', Arial, sans-serif; ">后台管理</a>
+            </div>
         </div>
+    </nav>
+
+    <div class="container-fluid all">
+        <jsp:include page="index_left.jsp"/>
     </div>
+
+    <div class="maincontent row">
+        <iframe name="content" style="border: 0px; width: 100%; height: 100%;"></iframe>
+    </div>
+
+
 </div>
 
 
