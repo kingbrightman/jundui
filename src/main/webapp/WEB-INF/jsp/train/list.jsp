@@ -37,6 +37,14 @@
             </td>
         </tr>
     </c:forEach>
+    <tr>
+        <td colspan="8">
+            <jsp:include page="/jsp/pager.jsp">
+                <jsp:param value="${datas.total }" name="totalRecord"/>
+                <jsp:param value="list" name="url"/>
+            </jsp:include>
+        </td>
+    </tr>
     </tbody>
 </table>
 </body>

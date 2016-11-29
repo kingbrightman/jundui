@@ -9,37 +9,50 @@
     String contextPaht = request.getContextPath();
 %>
 
-Train:
+<h2>训练信息</h2>
 <table border="1px solid #000">
-    <c:forEach items="users" var="user">
-        <tr>
-            <td>${train.id}</td>
-            <td>${train.name}</td>
-            <td>${train.description}</td>
-            <td>${train.level}</td>
-        </tr>
-    </c:forEach>
+    <h2>${train.name} > ${train.level}</h2>
 </table>
 
-Users:
+<h2>参加成员</h2>
 <table border="1px solid #000">
+    <thead>
+    <tr>
+        <td>编号</td>
+        <td>姓名</td>
+        <td>所属队伍</td>
+    </tr>
+    </thead>
+
+    <tbody>
     <c:forEach items="${users}" var="user">
         <tr>
             <td>${user.id}</td>
             <td>${user.name}</td>
-            <td>${user.group.id}</td>
+            <td>${user.group.name}</td>
         </tr>
     </c:forEach>
+    </tbody>
 </table>
 
-Subjects:
+<h2>所有项目</h2>
 <table border="1px solid #000">
+    <thead>
+    <tr>
+        <td>科目编号</td>
+        <td>科目名称</td>
+        <td>操作</td>
+    </tr>
+    </thead>
+    <tbody>
     <c:forEach items="${subjects}" var="subject">
         <tr>
             <td>${subject.id}</td>
-            <td><a href="<%=contextPaht%>/admin/grade/update/${train.id}/${subject.id}">${subject.name}</a></td>
+            <td>${subject.name}</td>
+            <td><a href="<%=contextPaht%>/admin/grade/update/${train.id}/${subject.id}">录入成绩</a></td>
         </tr>
     </c:forEach>
+    </tbody>
 </table>
 
 </body>
