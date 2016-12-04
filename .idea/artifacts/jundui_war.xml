@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="jundui:war">
-    <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="jundui.war">
-      <element id="artifact" artifact-name="jundui:war exploded" />
-    </root>
-  </artifact>
-</component>
