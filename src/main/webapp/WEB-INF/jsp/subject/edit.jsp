@@ -3,37 +3,48 @@
 <html>
 <head>
     <title>训练项目操作</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/temp.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap-theme.min.css">
 </head>
 <body>
 
-<sf:form modelAttribute="subject" method="post">
+<ul class="breadcrumb" id="breadcrumb">
+    <li class="active">训练科目管理</li>
+    <li class="active">添加训练科目</li>
+</ul>
 
-    <table border="1px solid #000">
-        <tbody>
-        <tr>
-            <td>名称</td>
-            <td><sf:input path="name"/><sf:errors path="name" cssStyle="color: red"/></td>
-        </tr>
-        <tr>
-            <td>描述</td>
-            <td><sf:input path="description"/></td>
-        </tr>
-        <tr>
-            <td>类型</td>
-            <td>
-                <sf:select path="type">
-                    <sf:options items="${types}"/>
-                </sf:select>
-                <sf:errors path="type" cssStyle="color: red"/>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2"><input type="submit" value="提交"></td>
-        </tr>
-        </tbody>
-    </table>
+<div style="margin-left:10px; margin-top: 10px;">
+    <sf:form modelAttribute="subject" method="post">
 
-</sf:form>
+        <table class="table table-bordered"  style="width: auto;">
+            <tbody>
+            <tr>
+                <td>名称</td>
+                <td><sf:input path="name"/><sf:errors path="name" cssStyle="color: red"/></td>
+            </tr>
+            <tr>
+                <td>描述</td>
+                <td><sf:input path="description"/></td>
+            </tr>
+            <tr>
+                <td>类型</td>
+                <td>
+                    <sf:select path="type">
+                        <sf:options items="${types}"/>
+                    </sf:select>
+                    <sf:errors path="type" cssStyle="color: red"/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input class="btn btn-default" type="submit" value="提交">
+                </td>
+            </tr>
+            </tbody>
+        </table>
 
+    </sf:form>
+</div>
 </body>
 </html>

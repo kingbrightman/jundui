@@ -3,6 +3,7 @@
 <head>
     <title>Title</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/temp.css">
+    <script src="${pageContext.request.contextPath}/resources/js/jquery-3.1.1.min.js"></script>
 </head>
 <body>
 
@@ -16,6 +17,6 @@
     </ul>
 </div>
 
-
+    <script src="${pageContext.request.contextPath}/resources/js/temp.js"></script>
 </body>
 </html>

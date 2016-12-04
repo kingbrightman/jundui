@@ -5,59 +5,68 @@
 <html>
 <head>
     <title>Title</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/temp.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap-theme.min.css">
 </head>
 <body>
 
-<sf:form modelAttribute="userDto" method="post">
-    <table>
-        <tr>
-            <td>姓名</td>
-            <td><sf:input path="name"/><sf:errors path="name"/></td>
-        </tr>
-        <tr>
-            <td>昵称</td>
-            <td><sf:input path="username"/></td>
-        </tr>
-        <tr>
-            <td>性别</td>
-            <td>
-                <sf:radiobutton path="sex" label="男" value="男"/>
-                <sf:radiobutton path="sex" label="女" value="女"/>
-            </td>
-        </tr>
-        <tr>
-            <td>密码</td>
-            <c:if test="${isUpdate}">
-                <td><sf:password disabled="true" path="password"/><sf:errors path="password"/></td>
-            </c:if>
-            <c:if test="${!isUpdate}">
-                <td><sf:password path="password"/><sf:errors path="password"/></td>
-            </c:if>
+<ul class="breadcrumb" id="breadcrumb">
+    <li class="active">用户管理</li>
+    <li class="active">添加用户</li>
+</ul>
 
-        </tr>
-        <tr>
-            <td>所在部门</td>
-            <td>
-                <sf:select path="group.id">
-                    <sf:options items="${groups}" itemLabel="name" itemValue="id"/>
-                </sf:select>
-                <sf:errors path="group.id"/>
-            </td>
-        </tr>
-        <tr>
-            <td>角色</td>
-            <td>
-                <sf:checkboxes path="roleIds" items="${roles}" itemLabel="name" itemValue="id"/>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <input type="submit" value="提交">
-                <input type="reset" value="重置">
-            </td>
-        </tr>
-    </table>
-</sf:form>
+<div style="margin-left:10px; margin-top: 10px;">
+    <sf:form modelAttribute="userDto" method="post">
+        <table class="table table-bordered"  style="width: auto;">
+            <tr>
+                <td>姓名</td>
+                <td><sf:input path="name"/><sf:errors path="name"/></td>
+            </tr>
+            <tr>
+                <td>昵称</td>
+                <td><sf:input path="username"/></td>
+            </tr>
+            <tr>
+                <td>性别</td>
+                <td>
+                    <sf:radiobutton path="sex" label="男" value="男"/>
+                    <sf:radiobutton path="sex" label="女" value="女"/>
+                </td>
+            </tr>
+            <tr>
+                <td>密码</td>
+                <c:if test="${isUpdate}">
+                    <td><sf:password disabled="true" path="password"/><sf:errors path="password"/></td>
+                </c:if>
+                <c:if test="${!isUpdate}">
+                    <td><sf:password path="password"/><sf:errors path="password"/></td>
+                </c:if>
 
+            </tr>
+            <tr>
+                <td>所在部门</td>
+                <td>
+                    <sf:select path="group.id">
+                        <sf:options items="${groups}" itemLabel="name" itemValue="id"/>
+                    </sf:select>
+                    <sf:errors path="group.id"/>
+                </td>
+            </tr>
+            <tr>
+                <td>角色</td>
+                <td>
+                    <sf:checkboxes path="roleIds" items="${roles}" itemLabel="name" itemValue="id"/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input  class="btn btn-default" type="submit" value="提交">
+                    <input  class="btn btn-default" type="reset" value="重置">
+                </td>
+            </tr>
+        </table>
+    </sf:form>
+</div>
 </body>
 </html>
