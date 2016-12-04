@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<ul class="breadcrumb">
+<ul class="breadcrumb" id="breadcrumb">
     <li class="active">角色管理</li>
 </ul>
 
@@ -17,7 +17,7 @@
 
     <a href="add" class="btn btn-default btn-lg  btn-sm" role="button">添加</a>
 
-    <table class="table table-hover" style="border: 1px solid #DDDDDD; margin-top: 10px; text-align: center;">
+    <table class="table table-hover" id="list_table">
         <tr>
             <td>ID</td>
             <td>角色名称</td>
@@ -47,6 +47,9 @@
         <jsp:param value="list" name="url"/>
     </jsp:include>
 </div>
+
+
+
 
 </body>
 
