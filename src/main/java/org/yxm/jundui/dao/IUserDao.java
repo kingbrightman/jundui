@@ -36,4 +36,6 @@ public interface IUserDao extends IBaseDao<User> {
     Pager<User> find();
 
     List<User> listGroupUsers(int gid);
+
+    User loadByUserName(String username);
 }

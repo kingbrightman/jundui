@@ -27,6 +27,13 @@ public class UserDao extends BaseDao<User> implements IUserDao {
     }
 
     @Override
+    public User loadByUserName(String username) {
+        String hql = "from User u where u.username=?";
+        return (User) this.getSession().createQuery(hql).
+                setParameter(0, username).uniqueResult();
+    }
+
+    @Override
     public List<Role> listUserRoles(int id) {
         String hql = "select ur.role from UserRole ur where ur.user.id = " + id;
         return this.getSession().createQuery(hql).list();

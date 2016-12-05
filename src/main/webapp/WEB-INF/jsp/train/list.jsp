@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="org.yxm.jundui.base.Constants" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -14,6 +15,9 @@
 </ul>
 <div class="col-sm-12">
     <a href="add" class="btn btn-default btn-lg  btn-sm" role="button">添加</a>
+
+    <%--error_info--%>
+    <p style="color: red;">${ error_info}</p>
 
     <table class="table table-hover" id="list_table">
         <thead>

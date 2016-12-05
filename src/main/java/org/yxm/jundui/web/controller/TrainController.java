@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.yxm.jundui.base.Constants;
 import org.yxm.jundui.model.Subject;
 import org.yxm.jundui.model.Train;
 import org.yxm.jundui.model.TrainLevel;
@@ -45,8 +46,6 @@ public class TrainController {
     @Autowired
     IGroupService groupService;
 
-    private static final int LOGINUSER_ID = 2;
-
     @RequestMapping("/list")
     public String list(Model model) {
         model.addAttribute("datas", trainService.find());
@@ -61,10 +60,9 @@ public class TrainController {
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String add(Model model, HttpServletRequest request) {
-        // TODO: 暂时没有登陆模块，先这样取 loginUser
-        User loginUser = (User) request.getSession().getAttribute("login_user");
+        User loginUser = getLoginUser(request);
         if (loginUser == null) {
-            loginUser = userService.load(LOGINUSER_ID);
+            return "redirect:/login";
         }
 
         TrainDto trainDto = new TrainDto();
@@ -82,9 +80,9 @@ public class TrainController {
             return "train/edit";
         }
 
-        User loginUser = (User) request.getSession().getAttribute("login_user");
+        User loginUser = getLoginUser(request);
         if (loginUser == null) {
-            loginUser = userService.load(LOGINUSER_ID);
+            return "redirect:/login";
         }
 
         Train train = trainDto.getTrain();
@@ -99,9 +97,21 @@ public class TrainController {
     }
 
     @RequestMapping(value = "/delete/{id}")
-    public String delete(@PathVariable int id) {
-        //TODO:提示删除train，那么train的所有项目成绩都会删除
+    public String delete(@PathVariable int id, HttpServletRequest request, Model model) {
+        Train train = trainService.load(id);
 
+        User loginUser = getLoginUser(request);
+        if (loginUser == null) {
+            return "redirect:/login";
+        }
+
+        if (train.getCreateUser().getId() != loginUser.getId()) {
+            model.addAttribute("datas", trainService.find());
+            request.setAttribute(Constants.ERROR_INFO, "该训练不是由你创建，不能删除");
+            return "redirect:/admin/train/list";
+        }
+
+        //TODO:提示删除train，那么train的所有项目成绩都会删除
         trainService.delete(id);
         return "redirect:/admin/train/list";
     }
@@ -111,13 +121,14 @@ public class TrainController {
         Train train = trainService.load(id);
 
         // 如果创建用户和当前用户不一样，不能更改
-        User loginUser = (User) request.getSession().getAttribute("login_user");
+        User loginUser = getLoginUser(request);
         if (loginUser == null) {
-            loginUser = userService.load(LOGINUSER_ID);
+            return "redirect:/login";
         }
 
         if (train.getCreateUser().getId() != loginUser.getId()) {
-            // TODO: 做出提示
+            model.addAttribute("datas", trainService.find());
+            request.setAttribute(Constants.ERROR_INFO, "该训练不是由你创建，不能修改");
             return "redirect:/admin/train/list";
         }
 
@@ -134,10 +145,9 @@ public class TrainController {
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     public String update(@PathVariable int id, @Valid TrainDto trainDto, BindingResult br, Model model,
                          HttpServletRequest request) {
-        // 如果创建用户和当前用户不一样，不能更改
-        User loginUser = (User) request.getSession().getAttribute("login_user");
+        User loginUser = getLoginUser(request);
         if (loginUser == null) {
-            loginUser = userService.load(LOGINUSER_ID);
+            return "redirect:/login";
         }
 
         if (br.hasErrors()) {
@@ -183,6 +193,10 @@ public class TrainController {
         initShow(model, train);
 
         return "train/show";
+    }
+
+    private User getLoginUser(HttpServletRequest request) {
+        return (User) request.getSession().getAttribute(Constants.LOGIN_USER);
     }
 
 }

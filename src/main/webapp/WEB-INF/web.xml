@@ -72,5 +72,15 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+    <!-- LoginFilter -->
+    <filter>
+        <filter-name>LoginFilter</filter-name>
+        <filter-class>org.yxm.jundui.web.filter.LoginFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
 
 </web-app>

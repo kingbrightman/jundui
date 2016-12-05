@@ -15,7 +15,10 @@
     <nav class="navbar navbar-default" role="navigation" style="position: fixed; z-index: 2; width: 100%;">
         <div class="container-fluid" style="background-color: #E8E8E8;">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#" style="color:#006600; font-size: 30px; font-family:'Microsoft Yahei', '微软雅黑', Arial, sans-serif; ">后台管理</a>
+                <a class="navbar-brand" href="#"
+                   style="color:#006600; font-size: 30px; font-family:'Microsoft Yahei', '微软雅黑', Arial, sans-serif; ">后台管理</a>
+
+                <p style="float: right; font-size: 14px;">当前用户：${login_user.name}　　<a href="${pageContext.request.contextPath}/logout">注销</a></p>
             </div>
         </div>
     </nav>

@@ -36,4 +36,6 @@ public interface IUserService {
     List<User> listGroupsUsers(Integer[] groupIds);
 
     List<User> listGroupUsers(int gid);
+
+    User loadByUserName(String username);
 }

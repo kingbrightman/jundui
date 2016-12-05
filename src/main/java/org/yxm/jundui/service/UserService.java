@@ -123,4 +123,9 @@ public class UserService implements IUserService {
     public List<User> listGroupUsers(int gid) {
         return userDao.listGroupUsers(gid);
     }
+
+    @Override
+    public User loadByUserName(String username) {
+        return userDao.loadByUserName(username);
+    }
 }
