@@ -24,7 +24,6 @@ public class LoginFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         User user = (User) request.getSession().getAttribute(Constants.LOGIN_USER);
 
-        System.out.println(request.getRequestURL());
         if (request.getRequestURL().toString().contains("admin")) {
             if (user == null) {
                 response.sendRedirect(request.getContextPath() + "/login");

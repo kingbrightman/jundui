@@ -1,6 +1,5 @@
 package org.yxm.jundui.web.controller;
 
-import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,9 +9,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.yxm.jundui.model.User;
-import org.yxm.jundui.service.IGroupService;
-import org.yxm.jundui.service.IRoleService;
-import org.yxm.jundui.service.IUserService;
+import org.yxm.jundui.service.GroupService;
+import org.yxm.jundui.service.RoleService;
+import org.yxm.jundui.service.UserService;
 import org.yxm.jundui.web.dto.UserDto;
 
 import javax.validation.Valid;
@@ -25,11 +24,11 @@ import javax.validation.Valid;
 public class UserController {
 
     @Autowired
-    IUserService userService;
+    UserService userService;
     @Autowired
-    IRoleService roleService;
+    RoleService roleService;
     @Autowired
-    IGroupService groupService;
+    GroupService groupService;
 
     @RequestMapping(value = "/list")
     public String list(Model model) {

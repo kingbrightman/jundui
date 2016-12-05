@@ -6,11 +6,11 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.yxm.jundui.dao.IGroupDao;
+import org.yxm.jundui.dao.GroupDao;
 import org.yxm.jundui.model.Pager;
 import org.yxm.jundui.model.Group;
 import org.yxm.jundui.model.User;
-import org.yxm.jundui.service.IGroupService;
+import org.yxm.jundui.service.GroupService;
 
 import java.util.List;
 
@@ -24,10 +24,10 @@ public class TestGroupDao {
     private static final Logger logger = Logger.getLogger(TestGroupDao.class);
 
     @Autowired
-    private IGroupDao groupDao;
+    private GroupDao groupDao;
 
     @Autowired
-    private IGroupService groupService;
+    private GroupService groupService;
 
     public void add() {
 //        groupDao.updateTrainSubjects(new Group("团1", "步兵团1"));

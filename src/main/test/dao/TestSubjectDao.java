@@ -6,12 +6,11 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.yxm.jundui.dao.ISubjectDao;
+import org.yxm.jundui.dao.SubjectDao;
 import org.yxm.jundui.dao.TrainDao;
 import org.yxm.jundui.model.Pager;
 import org.yxm.jundui.model.Subject;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,7 +23,7 @@ public class TestSubjectDao {
     private static final Logger logger = Logger.getLogger(TrainDao.class);
 
     @Autowired
-    private ISubjectDao subjectDao;
+    private SubjectDao subjectDao;
 
     @Test
     public void add() {

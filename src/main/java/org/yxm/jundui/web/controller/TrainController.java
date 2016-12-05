@@ -12,10 +12,10 @@ import org.yxm.jundui.model.Subject;
 import org.yxm.jundui.model.Train;
 import org.yxm.jundui.model.TrainLevel;
 import org.yxm.jundui.model.User;
-import org.yxm.jundui.service.IGroupService;
-import org.yxm.jundui.service.ISubjectService;
-import org.yxm.jundui.service.ITrainService;
-import org.yxm.jundui.service.IUserService;
+import org.yxm.jundui.service.GroupService;
+import org.yxm.jundui.service.SubjectService;
+import org.yxm.jundui.service.TrainService;
+import org.yxm.jundui.service.UserService;
 import org.yxm.jundui.util.ArrayUtils;
 import org.yxm.jundui.util.EnumUtils;
 import org.yxm.jundui.web.dto.TrainDto;
@@ -35,16 +35,16 @@ import java.util.List;
 public class TrainController {
 
     @Autowired
-    ITrainService trainService;
+    TrainService trainService;
 
     @Autowired
-    IUserService userService;
+    UserService userService;
 
     @Autowired
-    ISubjectService subjectService;
+    SubjectService subjectService;
 
     @Autowired
-    IGroupService groupService;
+    GroupService groupService;
 
     @RequestMapping("/list")
     public String list(Model model) {

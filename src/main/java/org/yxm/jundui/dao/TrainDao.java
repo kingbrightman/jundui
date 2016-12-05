@@ -10,25 +10,21 @@ import java.util.List;
  * Created by yxm on 2016.11.15.
  */
 @Repository
-public class TrainDao extends BaseDao<Train> implements ITrainDao {
-    @Override
+public class TrainDao extends BaseDao<Train> {
     public List<Train> list() {
         return this.list("from Train");
     }
 
-    @Override
     public Pager<Train> find() {
         return this.find("from Train");
     }
 
-    @Override
     public List<Integer> getSubjectIds(int id) {
         String hql = "select ts.subject.id from TrainSubject ts where ts.train.id = ?";
         return this.getSession().createQuery(hql)
                 .setParameter(0, id).list();
     }
 
-    @Override
     public void addTrainSubject(Train train, Subject subject) {
         TrainSubject ts = this.loadTrainSubject(train, subject);
         if (ts != null) return;
@@ -37,7 +33,6 @@ public class TrainDao extends BaseDao<Train> implements ITrainDao {
         this.getSession().save(ts);
     }
 
-    @Override
     public void deleteTrainSubject(Train train, Subject subject) {
         String hql = "delete from TrainSubject ts where ts.train.id = ? and ts.subject.id = ?";
         this.getSession().createQuery(hql)
@@ -46,7 +41,6 @@ public class TrainDao extends BaseDao<Train> implements ITrainDao {
                 .executeUpdate();
     }
 
-    @Override
     public TrainSubject loadTrainSubject(Train train, Subject subject) {
         String hql = "select ts from TrainSubject ts where ts.train.id = ? and ts.subject.id = ?";
         return (TrainSubject) this.getSession().createQuery(hql)
@@ -55,14 +49,12 @@ public class TrainDao extends BaseDao<Train> implements ITrainDao {
                 .uniqueResult();
     }
 
-    @Override
     public List<Integer> loadTrainSubjectIds(int id) {
         String hql = "select ts.subject.id from TrainSubject ts where ts.train.id = " + id;
         return this.getSession().createQuery(hql).list();
     }
 
 
-    @Override
     public void addTrainGroup(Train train, Group group) {
         TrainGroup tg = this.loadTrainGroup(train, group);
         if (tg != null) return;
@@ -71,7 +63,6 @@ public class TrainDao extends BaseDao<Train> implements ITrainDao {
         this.getSession().save(tg);
     }
 
-    @Override
     public void deleteTrainGroup(Train train, Group group) {
         String hql = "delete from TrainGroup tg where tg.train.id=? and tg.group.id=?";
         this.getSession().createQuery(hql)
@@ -80,7 +71,6 @@ public class TrainDao extends BaseDao<Train> implements ITrainDao {
                 .executeUpdate();
     }
 
-    @Override
     public TrainGroup loadTrainGroup(Train train, Group group) {
         String hql = "select tg from TrainGroup tg where tg.train.id=? and tg.group.id=?";
 
@@ -90,7 +80,6 @@ public class TrainDao extends BaseDao<Train> implements ITrainDao {
                 .uniqueResult();
     }
 
-    @Override
     public List<Integer> listTrainGroupIds(int id) {
         String hql = "select tg.group.id from TrainGroup tg where tg.train.id = " + id;
         return this.getSession().createQuery(hql).list();

@@ -13,10 +13,7 @@ import org.yxm.jundui.model.Train;
 import org.yxm.jundui.model.User;
 import org.yxm.jundui.service.*;
 import org.yxm.jundui.util.ArrayUtils;
-import org.yxm.jundui.web.dto.GradeDto;
 
-import javax.servlet.http.HttpServletRequest;
-import java.rmi.server.UID;
 import java.util.Collections;
 import java.util.List;
 
@@ -28,15 +25,15 @@ import java.util.List;
 public class GradeController {
 
     @Autowired
-    ITrainService trainService;
+    TrainService trainService;
     @Autowired
-    ISubjectService subjectService;
+    SubjectService subjectService;
     @Autowired
-    IUserService userService;
+    UserService userService;
     @Autowired
-    IGradeService gradeService;
+    GradeService gradeService;
     @Autowired
-    IGroupService groupService;
+    GroupService groupService;
 
     @RequestMapping(value = "/update/{tid}/{sid}")
     public String update(@PathVariable int tid, @PathVariable int sid, Model model) {

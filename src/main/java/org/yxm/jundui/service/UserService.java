@@ -1,13 +1,12 @@
 package org.yxm.jundui.service;
 
-import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.yxm.jundui.dao.IGroupDao;
-import org.yxm.jundui.dao.IRoleDao;
-import org.yxm.jundui.dao.IUserDao;
-import org.yxm.jundui.model.User;
+import org.yxm.jundui.dao.GroupDao;
+import org.yxm.jundui.dao.RoleDao;
+import org.yxm.jundui.dao.UserDao;
 import org.yxm.jundui.model.Pager;
+import org.yxm.jundui.model.User;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,47 +17,40 @@ import java.util.List;
  * Created by yxm on 2016.11.20.
  */
 @Service
-public class UserService implements IUserService {
+public class UserService {
 
     @Autowired
-    private IUserDao userDao;
+    private UserDao userDao;
     @Autowired
-    private IRoleDao roleDao;
+    private RoleDao roleDao;
     @Autowired
-    private IGroupDao groupDao;
+    private GroupDao groupDao;
 
 
-    @Override
     public void add(User user) {
         userDao.add(user);
     }
 
-    @Override
     public void delete(int id) {
         userDao.delete(id);
     }
 
-    @Override
     public User load(int id) {
         return userDao.load(id);
     }
 
-    @Override
     public void update(User user) {
         userDao.update(user);
     }
 
-    @Override
     public List<User> list() {
         return userDao.list();
     }
 
-    @Override
     public Pager<User> find() {
         return userDao.find();
     }
 
-    @Override
     public void add(User user, Integer[] roleIds) {
         user.setCreateDate(new Date());
         userDao.add(user);
@@ -68,12 +60,10 @@ public class UserService implements IUserService {
         }
     }
 
-    @Override
     public void addUserRole(int uid, int rid) {
         userDao.addUserRole(userDao.load(uid), roleDao.load(rid));
     }
 
-    @Override
     public void update(User user, Integer[] roleIds) {
         List<Integer> oldRoleIds = userDao.listUserRoleIds(user.getId());
 
@@ -93,18 +83,15 @@ public class UserService implements IUserService {
         }
     }
 
-    @Override
     public void deleteUserRole(int uid, Integer rid) {
         userDao.deleteUserRole(uid, rid);
     }
 
-    @Override
     public List<Integer> listUserRoleIds(int uid) {
         return userDao.listUserRoleIds(uid);
     }
 
 
-    @Override
     public List<User> listGroupsUsers(Integer[] groupIds) {
         List<User> users = new ArrayList<>();
         for (Integer gid : groupIds) {
@@ -119,12 +106,10 @@ public class UserService implements IUserService {
         return users;
     }
 
-    @Override
     public List<User> listGroupUsers(int gid) {
         return userDao.listGroupUsers(gid);
     }
 
-    @Override
     public User loadByUserName(String username) {
         return userDao.loadByUserName(username);
     }

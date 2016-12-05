@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.yxm.jundui.model.Group;
-import org.yxm.jundui.service.IGroupService;
-import org.yxm.jundui.service.IUserService;
+import org.yxm.jundui.service.GroupService;
+import org.yxm.jundui.service.UserService;
 
 /**
  * Created by yxm on 2016.11.20.
@@ -20,10 +20,10 @@ import org.yxm.jundui.service.IUserService;
 public class GroupController {
 
     @Autowired
-    private IGroupService groupService;
+    private GroupService groupService;
 
     @Autowired
-    private IUserService userService;
+    private UserService userService;
 
     @RequestMapping("/list")
     public String list(Model model) {

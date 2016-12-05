@@ -11,19 +11,16 @@ import java.util.List;
  * Created by yxm on 2016.11.15.
  */
 @Repository
-public class RoleDao extends BaseDao<Role> implements IRoleDao {
+public class RoleDao extends BaseDao<Role> {
 
-    @Override
     public List<Role> list() {
         return this.list("from Role");
     }
 
-    @Override
     public Pager<Role> find() {
         return this.find("from Role");
     }
 
-    @Override
     public List<User> listRoleUsers(int id) {
         String hql = "select ur.user from UserRole ur where ur.role.id = ?";
 
@@ -31,7 +28,6 @@ public class RoleDao extends BaseDao<Role> implements IRoleDao {
                 .setParameter(0, id).list();
     }
 
-    @Override
     public void deleteRoleUsers(int id) {
         String hql = "deleteTrainSubject UserRole ur where ur.role.id = ?";
         this.updateByHql(hql, id);

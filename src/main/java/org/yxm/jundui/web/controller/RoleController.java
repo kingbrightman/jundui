@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.yxm.jundui.model.Role;
 import org.yxm.jundui.model.RoleType;
-import org.yxm.jundui.service.IRoleService;
+import org.yxm.jundui.service.RoleService;
 import org.yxm.jundui.util.EnumUtils;
 
 /**
@@ -21,7 +21,7 @@ import org.yxm.jundui.util.EnumUtils;
 public class RoleController {
 
     @Autowired
-    IRoleService roleService;
+    RoleService roleService;
 
     @RequestMapping("/list")
     public String list(Model model) {

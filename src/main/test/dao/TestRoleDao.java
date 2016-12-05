@@ -6,7 +6,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.yxm.jundui.dao.IRoleDao;
+import org.yxm.jundui.dao.RoleDao;
 import org.yxm.jundui.model.Pager;
 import org.yxm.jundui.model.Role;
 
@@ -22,7 +22,7 @@ public class TestRoleDao {
     private static final Logger logger = Logger.getLogger(TestRoleDao.class);
 
     @Autowired
-    private IRoleDao roleDao;
+    private RoleDao roleDao;
 
     @Test
     public void add() {

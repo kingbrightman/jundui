@@ -2,7 +2,7 @@ package org.yxm.jundui.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.yxm.jundui.dao.IGradeDao;
+import org.yxm.jundui.dao.GradeDao;
 import org.yxm.jundui.model.Grade;
 import org.yxm.jundui.model.Subject;
 import org.yxm.jundui.model.Train;
@@ -15,12 +15,11 @@ import java.util.List;
  * Created by yxm on 2016.11.28.
  */
 @Service
-public class GradeService implements IGradeService {
+public class GradeService {
 
     @Autowired
-    IGradeDao gradeDao;
+    GradeDao gradeDao;
 
-    @Override
     public List<Grade> initAndListUsersGrade(Train train, Subject subject, List<User> users) {
         List<Grade> grades = new ArrayList<>();
         for (User user : users) {
@@ -36,12 +35,10 @@ public class GradeService implements IGradeService {
         return grades;
     }
 
-    @Override
     public Grade load(int tid, int sid, int uid) {
         return gradeDao.load(tid, sid, uid);
     }
 
-    @Override
     public void update(Grade grade) {
         gradeDao.update(grade);
     }

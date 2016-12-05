@@ -12,30 +12,25 @@ import java.util.List;
  * Created by yxm on 2016.11.20.
  */
 @Repository
-public class GroupDao extends BaseDao<Group> implements IGroupDao {
-    @Override
+public class GroupDao extends BaseDao<Group> {
     public List<Group> list() {
         return this.list("from Group");
     }
 
-    @Override
     public Pager<Group> find() {
         return this.find("from Group");
     }
 
-    @Override
     public void deleteGroupUsers(int id) {
         String hql = "deleteTrainSubject UserGroup ug where ug.group.id = " + id;
         this.updateByHql(hql);
     }
 
-    @Override
     public List<User> listGroupUsers(int gid) {
         String hql = "select ug.user from UserGroup ug where ug.group.id = " + gid;
         return this.getSession().createQuery(hql).list();
     }
 
-    @Override
     public List<Integer> listChildrenIds(int gid) {
         List<Integer> ids = new ArrayList<>();
         ids.add(gid);
@@ -56,7 +51,6 @@ public class GroupDao extends BaseDao<Group> implements IGroupDao {
         return ids;
     }
 
-    @Override
     public List<Group> listChildren(int gid) {
         List<Integer> ids = listChildrenIds(gid);
 

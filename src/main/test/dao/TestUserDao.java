@@ -22,19 +22,19 @@ public class TestUserDao {
     private static final Logger logger = Logger.getLogger(TestUserDao.class);
 
     @Autowired
-    private IUserDao userDao;
+    private UserDao userDao;
 
     @Autowired
-    private IRoleDao roleDao;
+    private RoleDao roleDao;
 
     @Autowired
-    private ITrainDao trainDao;
+    private TrainDao trainDao;
 
     @Autowired
-    private ISubjectDao subjectDao;
+    private SubjectDao subjectDao;
 
     @Autowired
-    private IGroupDao groupDao;
+    private GroupDao groupDao;
 
 
     @Test
