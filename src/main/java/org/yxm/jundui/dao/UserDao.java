@@ -61,8 +61,8 @@ public class UserDao extends BaseDao<User> {
     }
 
 
-    public List<Train> listUserTrain(int uid) {
-        String hql = "select ut.train from UserTrain ut where ut.user.id=?";
+    public List<Train> listUserCreatedTrain(int uid) {
+        String hql = "from Train t where t.createUser.id = ?";
         return this.getSession().createQuery(hql)
                 .setParameter(0, uid).list();
     }

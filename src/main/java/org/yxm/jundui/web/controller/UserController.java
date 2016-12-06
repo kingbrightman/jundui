@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.yxm.jundui.exception.CmsException;
+import org.yxm.jundui.model.Train;
 import org.yxm.jundui.model.User;
 import org.yxm.jundui.service.GroupService;
 import org.yxm.jundui.service.RoleService;
@@ -15,6 +17,7 @@ import org.yxm.jundui.service.UserService;
 import org.yxm.jundui.web.dto.UserDto;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * Created by yxm on 2016.11.15.
@@ -61,6 +64,12 @@ public class UserController {
 
     @RequestMapping(value = "/delete/{id}")
     public String delete(@PathVariable int id) {
+        //TODO:如果还有用户创建的训练，则不能删除
+        List<Train> trains =userService.listUserTrains(id);
+        if (trains != null && trains.size() > 0) {
+            throw new CmsException("该用户还有创建的训练，请先删除所有属于他的训练");
+        }
+
         userService.delete(id);
         return "redirect:/admin/user/list";
     }

@@ -1,5 +1,6 @@
 package org.yxm.jundui.web.controller;
 
+import com.sun.xml.internal.messaging.saaj.soap.GifDataContentHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,9 +9,15 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.yxm.jundui.exception.CmsException;
 import org.yxm.jundui.model.Group;
+import org.yxm.jundui.model.Train;
+import org.yxm.jundui.model.User;
 import org.yxm.jundui.service.GroupService;
+import org.yxm.jundui.service.TrainService;
 import org.yxm.jundui.service.UserService;
+
+import java.util.List;
 
 /**
  * Created by yxm on 2016.11.20.
@@ -24,6 +31,9 @@ public class GroupController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private TrainService trainService;
 
     @RequestMapping("/list")
     public String list(Model model) {
@@ -69,6 +79,18 @@ public class GroupController {
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public String delete(@PathVariable int id) {
+        //TODO:如果还有子部门，不能删除
+        List<Integer> childIds = groupService.listChildrenIds(id);
+        childIds.remove(0 );//删除自己
+        if(childIds!=null && childIds.size()>0){
+            throw new CmsException("该部门还有子部门，请先删除子部门");
+        }
+        //TODO:如果还有用户，不能删除
+        List<User> users = groupService.listGroupUsers(id);
+        if(users!=null && users.size()>0){
+            throw new CmsException("该部门下有用户，请先删除用户");
+        }
+
         groupService.delete(id);
         return "redirect:/admin/group/list";
     }

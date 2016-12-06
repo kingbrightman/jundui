@@ -104,7 +104,7 @@ public class TestUserDao {
 
     @Test
     public void getUserTrain() {
-        List<Train> list = userDao.listUserTrain(3);
+        List<Train> list = userDao.listUserCreatedTrain(3);
         for (Train ur : list) {
             logger.debug(ur.getName());
         }

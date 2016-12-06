@@ -6,6 +6,7 @@ import org.yxm.jundui.dao.GroupDao;
 import org.yxm.jundui.dao.RoleDao;
 import org.yxm.jundui.dao.UserDao;
 import org.yxm.jundui.model.Pager;
+import org.yxm.jundui.model.Train;
 import org.yxm.jundui.model.User;
 
 import java.util.ArrayList;
@@ -112,5 +113,9 @@ public class UserService {
 
     public User loadByUserName(String username) {
         return userDao.loadByUserName(username);
+    }
+
+    public List<Train> listUserTrains(int uid) {
+        return userDao.listUserCreatedTrain(uid);
     }
 }
