@@ -9,11 +9,11 @@
     String contextPaht = request.getContextPath();
 %>
 
-<h2>训练信息</h2>
-<table border="1px solid #000">
-    <h2>${train.name} > ${train.level}</h2>
-</table>
+<h1>训练信息</h1>
+<h2>训练名称：${train.name}</h2>
+<h2>训练级别：${train.level.name}</h2>
 
+<br>
 <h2>参加成员</h2>
 <table border="1px solid #000">
     <thead>
@@ -35,6 +35,7 @@
     </tbody>
 </table>
 
+<br>
 <h2>所有项目</h2>
 <table border="1px solid #000">
     <thead>
@@ -49,7 +50,10 @@
         <tr>
             <td>${subject.id}</td>
             <td>${subject.name}</td>
-            <td><a href="<%=contextPaht%>/admin/grade/update/${train.id}/${subject.id}">录入成绩</a></td>
+            <td colspan="2">
+                <a href="<%=contextPaht%>/admin/grade/show/${train.id}/${subject.id}">查看成绩</a>
+                <a href="<%=contextPaht%>/admin/grade/update/${train.id}/${subject.id}">录入成绩</a>
+            </td>
         </tr>
     </c:forEach>
     </tbody>

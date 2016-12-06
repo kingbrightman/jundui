@@ -35,13 +35,7 @@ public class GradeController {
     @Autowired
     GroupService groupService;
 
-    @RequestMapping(value = "/update/{tid}/{sid}")
-    public String update(@PathVariable int tid, @PathVariable int sid, Model model) {
-        Train train = trainService.load(tid);
-        model.addAttribute(train);
-        Subject subject = subjectService.load(sid);
-        model.addAttribute(subject);
-
+    private void initGrades(Train train, Subject subject, Model model) {
         List<Integer> groupIds = trainService.listTrainGroupIds(train);
         groupIds = groupService.listGroupsChildrenIds(groupIds);
         Collections.sort(groupIds);
@@ -49,7 +43,16 @@ public class GradeController {
 
         List<Grade> grades = gradeService.initAndListUsersGrade(train, subject, users);
         model.addAttribute("grades", grades);
+    }
 
+    @RequestMapping(value = "/update/{tid}/{sid}")
+    public String update(@PathVariable int tid, @PathVariable int sid, Model model) {
+        Train train = trainService.load(tid);
+        model.addAttribute(train);
+        Subject subject = subjectService.load(sid);
+        model.addAttribute(subject);
+
+        initGrades(train, subject, model);
         return "grade/update";
     }
 
@@ -68,5 +71,16 @@ public class GradeController {
             gradeService.update(grade);
         }
         return "redirect:/admin/train/show/" + tid;
+    }
+
+    @RequestMapping(value = "/show/{tid}/{sid}")
+    public String show(@PathVariable int tid, @PathVariable int sid, Model model) {
+        Train train = trainService.load(tid);
+        model.addAttribute(train);
+        Subject subject = subjectService.load(sid);
+        model.addAttribute(subject);
+
+        initGrades(train, subject, model);
+        return "grade/show";
     }
 }
