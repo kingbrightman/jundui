@@ -3,6 +3,7 @@ package org.yxm.jundui.web.dto;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.yxm.jundui.model.Group;
 import org.yxm.jundui.model.User;
+import org.yxm.jundui.model.UserType;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -20,6 +21,8 @@ public class UserDto {
     private String name;
     private String sex;
     private Date createDate;
+    private Boolean active;
+    private UserType type;
 
     private Group group;
 
@@ -93,6 +96,22 @@ public class UserDto {
         this.group = group;
     }
 
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public UserType getType() {
+        return type;
+    }
+
+    public void setType(UserType type) {
+        this.type = type;
+    }
+
     public User getUser() {
         User u = new User();
         u.setId(this.id);
@@ -102,6 +121,8 @@ public class UserDto {
         u.setCreateDate(this.getCreateDate());
         u.setSex(this.sex);
         u.setGroup(this.getGroup());
+        u.setActive(this.getActive());
+        u.setType(this.getType());
         return u;
     }
 
@@ -113,6 +134,8 @@ public class UserDto {
         this.setSex(user.getSex());
         this.setCreateDate(user.getCreateDate());
         this.setGroup(user.getGroup());
+        this.setActive(user.getActive());
+        this.setType(user.getType());
     }
 
     public UserDto(User user, Integer[] roleIds) {
@@ -124,6 +147,8 @@ public class UserDto {
         this.setCreateDate(user.getCreateDate());
         this.setRoleIds(roleIds);
         this.setGroup(user.getGroup());
+        this.setActive(user.getActive());
+        this.setType(user.getType());
     }
 
     public UserDto(User user, List<Integer> roleIds) {
@@ -135,6 +160,8 @@ public class UserDto {
         this.setCreateDate(user.getCreateDate());
         this.setRoleIds(list2Array(roleIds));
         this.setGroup(user.getGroup());
+        this.setActive(user.getActive());
+        this.setType(user.getType());
     }
 
     private Integer[] list2Array(List<Integer> datas) {

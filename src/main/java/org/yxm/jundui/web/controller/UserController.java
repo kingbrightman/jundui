@@ -9,11 +9,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.yxm.jundui.exception.CmsException;
+import org.yxm.jundui.model.RoleType;
 import org.yxm.jundui.model.Train;
 import org.yxm.jundui.model.User;
+import org.yxm.jundui.model.UserType;
 import org.yxm.jundui.service.GroupService;
 import org.yxm.jundui.service.RoleService;
 import org.yxm.jundui.service.UserService;
+import org.yxm.jundui.util.EnumUtils;
 import org.yxm.jundui.web.dto.UserDto;
 
 import javax.validation.Valid;
@@ -39,9 +42,14 @@ public class UserController {
         return "user/list";
     }
 
+    private void addUserTypesToModel(Model model) {
+        model.addAttribute("types", EnumUtils.enumProp2NameMap(UserType.class, "name"));
+    }
+
     private void initAdd(Model model) {
         model.addAttribute("roles", roleService.list());
         model.addAttribute("groups", groupService.list());
+        addUserTypesToModel(model);
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
@@ -65,7 +73,7 @@ public class UserController {
     @RequestMapping(value = "/delete/{id}")
     public String delete(@PathVariable int id) {
         //TODO:如果还有用户创建的训练，则不能删除
-        List<Train> trains =userService.listUserTrains(id);
+        List<Train> trains = userService.listUserTrains(id);
         if (trains != null && trains.size() > 0) {
             throw new CmsException("该用户还有创建的训练，请先删除所有属于他的训练");
         }
@@ -101,6 +109,8 @@ public class UserController {
         oldUser.setUsername(newUser.getUsername());
         oldUser.setSex(newUser.getSex());
         oldUser.setGroup(newUser.getGroup());
+        oldUser.setActive(newUser.getActive());
+        oldUser.setType(newUser.getType());
 
         userService.update(oldUser);
         userService.update(oldUser, userDto.getRoleIds());
