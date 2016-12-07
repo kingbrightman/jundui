@@ -12,17 +12,24 @@ public class GradeLevel {
     private int id;
     private Subject subject;
 
-    private String yfrom;
-    private String yto;
+    public static final String Y = "优秀";
+    public static final String L = "良好";
+    public static final String Z = "合格";
+    public static final String C = "不合格";
+    public static final String ERROR = "成绩错误";
+    public static final double ACCURACY = 0.000001;
 
-    private String lfrom;
-    private String lto;
+    public String yfrom;
+    public String yto;
 
-    private String zfrom;
-    private String zto;
+    public String lfrom;
+    public String lto;
 
-    private String cfrom;
-    private String cto;
+    public String zfrom;
+    public String zto;
+
+    public String cfrom;
+    public String cto;
 
     public GradeLevel() {
     }

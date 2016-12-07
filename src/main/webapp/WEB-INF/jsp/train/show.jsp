@@ -51,8 +51,8 @@
             <td>${subject.id}</td>
             <td>${subject.name}</td>
             <td colspan="2">
-                <a href="<%=contextPaht%>/admin/grade/show/${train.id}/${subject.id}">查看成绩</a>
-                <a href="<%=contextPaht%>/admin/grade/update/${train.id}/${subject.id}">录入成绩</a>
+                <a href="${pageContext.request.contextPath}/admin/grade/show/${train.id}/${subject.id}">查看成绩</a>
+                <a href="${pageContext.request.contextPath}/admin/grade/update/${train.id}/${subject.id}">录入成绩</a>
             </td>
         </tr>
     </c:forEach>

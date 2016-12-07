@@ -38,10 +38,10 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    优秀：<sf:input path="yfrom"/> - <sf:input path="yto"/><br>
-                    良好：<sf:input path="lfrom"/> - <sf:input path="lto"/><br>
-                    中等：<sf:input path="zfrom"/> - <sf:input path="zto"/><br>
-                    差：<sf:input path="cfrom"/> - <sf:input path="cto"/><br>
+                    　优秀：<sf:input path="yfrom"/> - <sf:input path="yto"/><br>
+                    　良好：<sf:input path="lfrom"/> - <sf:input path="lto"/><br>
+                    　合格：<sf:input path="zfrom"/> - <sf:input path="zto"/><br>
+                    不合格：<sf:input path="cfrom"/> - <sf:input path="cto"/><br>
                 </td>
             </tr>
             <tr>

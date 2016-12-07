@@ -6,7 +6,10 @@
 </head>
 <body>
 
-<h1>${train.name} > ${subject.name} 成绩录入</h1>
+<h1>成绩录入</h1>
+
+<h2>训练名称：<a href="${pageContext.request.contextPath}/admin/train/show/{train.id}">${train.name}</a></h2>
+<h2>科目名称：${subject.name}</h2>
 
 <form method="post">
     <table border="1px solid #000">

@@ -7,12 +7,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.yxm.jundui.model.Grade;
-import org.yxm.jundui.model.Subject;
-import org.yxm.jundui.model.Train;
-import org.yxm.jundui.model.User;
+import org.yxm.jundui.exception.CmsException;
+import org.yxm.jundui.model.*;
 import org.yxm.jundui.service.*;
 import org.yxm.jundui.util.ArrayUtils;
+import org.yxm.jundui.util.GradeLevelUtil;
 
 import java.util.Collections;
 import java.util.List;
@@ -34,6 +33,8 @@ public class GradeController {
     GradeService gradeService;
     @Autowired
     GroupService groupService;
+    @Autowired
+    GradeLevelService gradeLevelService;
 
     private void initGrades(Train train, Subject subject, Model model) {
         List<Integer> groupIds = trainService.listTrainGroupIds(train);
@@ -60,13 +61,22 @@ public class GradeController {
     public String update(@PathVariable int tid, @PathVariable int sid, Model model,
                          @RequestParam("uid") List<Integer> ids,
                          @RequestParam("content") List<String> contents) {
+        GradeLevel level = gradeLevelService.load(sid);
+        if (level == null) {
+            throw new CmsException("要计算成绩，请到训练科目中填写成绩计算方式");
+        }
+        Subject subject = subjectService.load(sid);
+
         for (int i = 0; i < ids.size(); i++) {
             User user = userService.load(ids.get(i));
             Grade grade = gradeService.load(tid, sid, user.getId());
+
+
             if (grade != null) {
                 grade.setContent(contents.get(i));
+                grade.setScore(caculateScore(subject.getType(), contents.get(i), level));
             } else {
-                System.out.println("出错了");
+                throw new CmsException("计算成绩出错！");
             }
             gradeService.update(grade);
         }
@@ -83,4 +93,24 @@ public class GradeController {
         initGrades(train, subject, model);
         return "grade/show";
     }
+
+    private String caculateScore(SubjectType type, String content, GradeLevel level) {
+        if (GradeLevelUtil.isNullOrEmpty(content)) {
+            return "没有成绩";
+        }
+        if (content.equals("-1")) {
+            return "因病不参加";
+        }
+        if (type == SubjectType.INT) {
+            return GradeLevelUtil.calculateINT(content, level);
+        } else if (type == SubjectType.FLOAT) {
+            return GradeLevelUtil.calculateFLOAT(content, level);
+        } else if (type == SubjectType.TIME) {
+            return GradeLevelUtil.calculateTIME(content, level);
+        } else if (type == SubjectType.MESC) {
+            return GradeLevelUtil.calculateMSEC(content, level);
+        }
+        return "成绩类型错误";
+    }
+
 }
