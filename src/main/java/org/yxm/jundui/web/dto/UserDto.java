@@ -4,6 +4,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.yxm.jundui.model.Group;
 import org.yxm.jundui.model.User;
 import org.yxm.jundui.model.UserType;
+import org.yxm.jundui.util.ArrayUtils;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -126,31 +127,6 @@ public class UserDto {
         return u;
     }
 
-    public UserDto(User user) {
-        this.setId(user.getId());
-        this.setName(user.getName());
-        this.setUsername(user.getUsername());
-        this.setPassword(user.getPassword());
-        this.setSex(user.getSex());
-        this.setCreateDate(user.getCreateDate());
-        this.setGroup(user.getGroup());
-        this.setActive(user.getActive());
-        this.setType(user.getType());
-    }
-
-    public UserDto(User user, Integer[] roleIds) {
-        this.setId(user.getId());
-        this.setName(user.getName());
-        this.setUsername(user.getUsername());
-        this.setPassword(user.getPassword());
-        this.setSex(user.getSex());
-        this.setCreateDate(user.getCreateDate());
-        this.setRoleIds(roleIds);
-        this.setGroup(user.getGroup());
-        this.setActive(user.getActive());
-        this.setType(user.getType());
-    }
-
     public UserDto(User user, List<Integer> roleIds) {
         this.setId(user.getId());
         this.setName(user.getName());
@@ -158,19 +134,35 @@ public class UserDto {
         this.setPassword(user.getPassword());
         this.setSex(user.getSex());
         this.setCreateDate(user.getCreateDate());
-        this.setRoleIds(list2Array(roleIds));
+        this.setRoleIds(ArrayUtils.list2Array(roleIds));
         this.setGroup(user.getGroup());
         this.setActive(user.getActive());
         this.setType(user.getType());
     }
 
-    private Integer[] list2Array(List<Integer> datas) {
-        Integer[] nums = new Integer[datas.size()];
-        for (int i = 0; i < datas.size(); i++) {
-            nums[i] = datas.get((int) i);
-        }
-        return nums;
-    }
-
+//    public UserDto(User user) {
+//        this.setId(user.getId());
+//        this.setName(user.getName());
+//        this.setUsername(user.getUsername());
+//        this.setPassword(user.getPassword());
+//        this.setSex(user.getSex());
+//        this.setCreateDate(user.getCreateDate());
+//        this.setGroup(user.getGroup());
+//        this.setActive(user.getActive());
+//        this.setType(user.getType());
+//    }
+//
+//    public UserDto(User user, Integer[] roleIds) {
+//        this.setId(user.getId());
+//        this.setName(user.getName());
+//        this.setUsername(user.getUsername());
+//        this.setPassword(user.getPassword());
+//        this.setSex(user.getSex());
+//        this.setCreateDate(user.getCreateDate());
+//        this.setRoleIds(roleIds);
+//        this.setGroup(user.getGroup());
+//        this.setActive(user.getActive());
+//        this.setType(user.getType());
+    
 
 }
