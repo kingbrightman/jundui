@@ -5,7 +5,7 @@
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/temp.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css">
 </head>
 <body>
 
@@ -18,8 +18,8 @@
                 <a class="navbar-brand" href="#"
                    style="color:#006600; font-size: 30px; font-family:'Microsoft Yahei', '微软雅黑', Arial, sans-serif; ">后台管理</a>
 
-                <p style="float: right; font-size: 14px;">当前用户：${login_user.name}　　<a href="${pageContext.request.contextPath}/logout">注销</a></p>
             </div>
+            <span style="float: right; font-size: 14px; margin-top: 15px;">当前用户：${login_user.name}　　<a href="${pageContext.request.contextPath}/logout">注销</a></span>
         </div>
     </nav>
     <div class="container-fluid all">
