@@ -5,7 +5,7 @@ package org.yxm.jundui.model;
  */
 public enum SubjectType {
 
-    INT("整数"), FLOAT("小数"), TIME("分秒");
+    INT("整数"), FLOAT("小数"), TIME("分'秒"), MESC("秒''毫秒");
 
     private String name;
 

@@ -22,6 +22,8 @@ public class Subject {
 
     private SubjectType type;
 
+    private GradeLevel level;
+
     public Subject() {
     }
 
@@ -64,5 +66,16 @@ public class Subject {
 
     public void setType(SubjectType type) {
         this.type = type;
+    }
+
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "grade_level_id")
+    public GradeLevel getLevel() {
+        return level;
+    }
+
+    public void setLevel(GradeLevel level) {
+        this.level = level;
     }
 }

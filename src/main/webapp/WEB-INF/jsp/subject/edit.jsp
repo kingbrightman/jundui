@@ -15,9 +15,9 @@
 </ul>
 
 <div style="margin-left:10px; margin-top: 10px;">
-    <sf:form modelAttribute="subject" method="post">
+    <sf:form modelAttribute="subjectDto" method="post">
 
-        <table class="table table-bordered"  style="width: auto;">
+        <table class="table table-bordered" style="width: auto;">
             <tbody>
             <tr>
                 <td>名称</td>
@@ -34,6 +34,14 @@
                         <sf:options items="${types}"/>
                     </sf:select>
                     <sf:errors path="type" cssStyle="color: red"/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    　优秀：<sf:input path="yfrom"/> - <sf:input path="yto"/><br>
+                    　良好：<sf:input path="lfrom"/> - <sf:input path="lto"/><br>
+                    　合格：<sf:input path="zfrom"/> - <sf:input path="zto"/><br>
+                    不合格：<sf:input path="cfrom"/> - <sf:input path="cto"/><br>
                 </td>
             </tr>
             <tr>

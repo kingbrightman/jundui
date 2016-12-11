@@ -1,7 +1,5 @@
 package org.yxm.jundui.model;
 
-import org.apache.tools.ant.filters.LineContains;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -17,6 +15,8 @@ public class User {
     private String password;
     private String name;
     private String sex;
+    private UserType type;
+    private Boolean active;
 
     private Date createDate;
 
@@ -91,6 +91,25 @@ public class User {
 
     public void setGroup(Group group) {
         this.group = group;
+    }
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type")
+    public UserType getType() {
+        return type;
+    }
+
+    public void setType(UserType type) {
+        this.type = type;
+    }
+
+    @Column(name = "is_active")
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
     @Override

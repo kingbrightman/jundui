@@ -11,34 +11,37 @@
 
 <ul class="breadcrumb" id="breadcrumb">
     <li class="active">训练管理</li>
-    <li class="active">成绩录入</li>
+    <li class="active">成绩查看</li>
 </ul>
-<div class="col-sm-6">
-    <p>训练名称：<a href="${pageContext.request.contextPath}/admin/train/show/{train.id}">${train.name}</a> &nbsp;&nbsp;&nbsp;  科目名称：${subject.name}</p>
-    <h2></h2>
+<div class="col-sm-12">
+    <p>训练名称：<a href="${pageContext.request.contextPath}/admin/train/show/${train.id}">${train.name}</a> &nbsp;&nbsp;&nbsp; 科目名称：${subject.name}</p>
 
     <form method="post">
         <table  class="table table-hover table-bordered">
             <thead>
             <tr>
+                <td>用户ID</td>
                 <td>姓名</td>
                 <td>成绩</td>
+                <td>级别</td>
             </tr>
             </thead>
             <tbody>
             <c:forEach items="${grades}" var="grade">
                 <tr>
+                    <td>${grade.user.id}</td>
                     <td>${grade.user.name}</td>
-                    <input  name="uid" type="hidden" value="${grade.user.id}">
-                    <td><input  name="content" class="form-control" type="text" value="${grade.content}" style="border:0;"></td>
+                    <td>${grade.content}</td>
+                    <td>${grade.score}</td>
                 </tr>
             </c:forEach>
-            <tr>
-                <td colspan="2"><input type="submit" value="提交" class="btn btn-default"></td>
-            </tr>
             </tbody>
+            <tr>
+                <td colspan="4">
+                    <a href="${pageContext.request.contextPath}/admin/grade/update/${train.id}/${subject.id}">修改成绩</a>
+                </td>
+            </tr>
         </table>
-
     </form>
 </div>
 </body>

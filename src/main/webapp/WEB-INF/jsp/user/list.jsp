@@ -21,8 +21,10 @@
         <tr>
             <td>ID</td>
             <td>姓名</td>
-            <td>昵称</td>
+            <td>登录名</td>
             <td>性别</td>
+            <td>服役中</td>
+            <td>级别</td>
             <td>创建日期</td>
             <td>所属部队</td>
             <td>密码</td>
@@ -37,6 +39,11 @@
                 <td>${user.name}</td>
                 <td>${user.username}</td>
                 <td>${user.sex}</td>
+                <td>
+                    <c:if test="${user.active}">是</c:if>
+                    <c:if test="!${user.active}">否</c:if>
+                </td>
+                <td>${user.type.name}</td>
                 <td>${user.createDate}</td>
                 <td>${user.group.name}</td>
                 <td>${user.password}</td>

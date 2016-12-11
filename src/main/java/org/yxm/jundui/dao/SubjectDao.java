@@ -3,6 +3,7 @@ package org.yxm.jundui.dao;
 import org.springframework.stereotype.Repository;
 import org.yxm.jundui.model.Pager;
 import org.yxm.jundui.model.Subject;
+import org.yxm.jundui.model.Train;
 
 import java.util.List;
 
@@ -23,5 +24,11 @@ public class SubjectDao extends BaseDao<Subject> {
         String hql = "from Subject s where s.id in (:ids)";
         return this.getSession().createQuery(hql)
                 .setParameterList("ids", ids).list();
+    }
+
+    public List<Train> listSujectTrains(int sid) {
+        String hql = "select ts.train from TrainSubject ts where ts.subject.id = ?";
+        return this.getSession().createQuery(hql)
+                .setParameter(0, sid).list();
     }
 }

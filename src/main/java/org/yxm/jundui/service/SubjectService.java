@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.yxm.jundui.dao.SubjectDao;
 import org.yxm.jundui.model.Pager;
 import org.yxm.jundui.model.Subject;
+import org.yxm.jundui.model.Train;
 
 import java.util.List;
 
@@ -43,5 +44,9 @@ public class SubjectService {
 
     public void update(Subject subject) {
         subjectDao.update(subject);
+    }
+
+    public List<Train> listSubjectTrains(int sid) {
+        return subjectDao.listSujectTrains(sid);
     }
 }

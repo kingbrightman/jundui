@@ -3,6 +3,7 @@ package org.yxm.jundui.dao;
 import org.springframework.stereotype.Repository;
 import org.yxm.jundui.model.Group;
 import org.yxm.jundui.model.Pager;
+import org.yxm.jundui.model.Train;
 import org.yxm.jundui.model.User;
 
 import java.util.ArrayList;
@@ -22,12 +23,12 @@ public class GroupDao extends BaseDao<Group> {
     }
 
     public void deleteGroupUsers(int id) {
-        String hql = "deleteTrainSubject UserGroup ug where ug.group.id = " + id;
+        String hql = "delete TrainSubject UserGroup ug where ug.group.id = " + id;
         this.updateByHql(hql);
     }
 
     public List<User> listGroupUsers(int gid) {
-        String hql = "select ug.user from UserGroup ug where ug.group.id = " + gid;
+        String hql = "select u from User u where u.group.id = " + gid;
         return this.getSession().createQuery(hql).list();
     }
 
@@ -57,4 +58,5 @@ public class GroupDao extends BaseDao<Group> {
         String hql = "select g from Group g where g.id in (:ids)";
         return this.getSession().createQuery(hql).setParameterList("ids", ids).list();
     }
+
 }

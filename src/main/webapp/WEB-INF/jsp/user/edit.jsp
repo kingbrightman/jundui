@@ -35,6 +35,22 @@
                 </td>
             </tr>
             <tr>
+                <td>是否激活</td>
+                <td>
+                    <sf:radiobutton path="active" label="是" value="true"/>
+                    <sf:radiobutton path="active" label="否" value="false"/>
+                </td>
+            </tr>
+            <tr>
+                <td>级别</td>
+                <td>
+                    <sf:select path="type">
+                        <sf:options items="${types}"/>
+                    </sf:select>
+                    <sf:errors path="type"/>
+                </td>
+            </tr>
+            <tr>
                 <td>密码</td>
                 <c:if test="${isUpdate}">
                     <td><sf:password disabled="true" path="password"/><sf:errors path="password"/></td>
