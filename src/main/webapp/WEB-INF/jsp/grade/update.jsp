@@ -9,6 +9,7 @@
 </head>
 <body>
 
+<<<<<<< HEAD
 <ul class="breadcrumb" id="breadcrumb">
     <li class="active">训练管理</li>
     <li class="active">成绩录入</li>
@@ -16,6 +17,12 @@
 <div class="col-sm-6">
     <p>训练名称：<a href="${pageContext.request.contextPath}/admin/train/show/{train.id}">${train.name}</a> &nbsp;&nbsp;&nbsp;  科目名称：${subject.name}</p>
     <h2></h2>
+=======
+<h1>成绩录入</h1>
+
+<h2>训练名称：<a href="${pageContext.request.contextPath}/admin/train/show/{train.id}">${train.name}</a></h2>
+<h2>科目名称：${subject.name}</h2>
+>>>>>>> main/master
 
     <form method="post">
         <table  class="table table-hover table-bordered">
