@@ -118,4 +118,12 @@ public class SubjectController {
         subjectService.update(oldSubject);
         return "redirect:/admin/subject/list";
     }
+
+    @RequestMapping(value = "/show/{sid}")
+    public String show(@PathVariable int sid, Model model) {
+        Subject subject = subjectService.load(sid);
+        model.addAttribute(subject);
+        return "subject/show";
+    }
+
 }

@@ -3,6 +3,8 @@ package org.yxm.jundui.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.yxm.jundui.dao.GradeDao;
+import org.yxm.jundui.dao.SubjectDao;
+import org.yxm.jundui.dao.TrainDao;
 import org.yxm.jundui.model.Grade;
 import org.yxm.jundui.model.Subject;
 import org.yxm.jundui.model.Train;
@@ -18,16 +20,21 @@ import java.util.List;
 public class GradeService {
 
     @Autowired
-    GradeDao gradeDao;
+    private GradeDao gradeDao;
+    @Autowired
+    TrainDao trainDao;
+    @Autowired
+    SubjectDao subjectDao;
 
-    public List<Grade> initAndListUsersGrade(Train train, Subject subject, List<User> users) {
+
+    public List<Grade> initAndListUsersGrade(int tid, int sid, List<User> users) {
         List<Grade> grades = new ArrayList<>();
         for (User user : users) {
-            Grade grade = gradeDao.load(train.getId(), subject.getId(), user.getId());
+            Grade grade = gradeDao.load(tid, sid, user.getId());
             if (grade != null) {
                 grades.add(grade);
             } else {
-                grade = new Grade(train, subject, user);
+                grade = new Grade(trainDao.load(tid), subjectDao.load(sid), user);
                 gradeDao.add(grade);
                 grades.add(grade);
             }
@@ -41,5 +48,9 @@ public class GradeService {
 
     public void update(Grade grade) {
         gradeDao.update(grade);
+    }
+
+    public List<Grade> listUserTrainSubjectsGrades(int tid, int uid) {
+        return gradeDao.listUserTrainSubjectsGrades(tid, uid);
     }
 }

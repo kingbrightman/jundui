@@ -6,6 +6,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 import org.yxm.jundui.dao.RoleDao;
 import org.yxm.jundui.model.Pager;
 import org.yxm.jundui.model.Role;
@@ -24,9 +25,10 @@ public class TestRoleDao {
     @Autowired
     private RoleDao roleDao;
 
+    @Transactional
     @Test
     public void add() {
-        roleDao.add(new Role("普通用户", "只能查看数据"));
+        roleDao.add(new Role("普通用户1", "只能查看数据"));
     }
 
     @Test

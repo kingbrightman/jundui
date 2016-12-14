@@ -87,11 +87,11 @@ public class TrainService {
         }
     }
 
-    public List<Integer> listTrainSubjectIds(Train train) {
-        return trainDao.loadTrainSubjectIds(train.getId());
+    public List<Integer> listTrainSubjectIds(int tid) {
+        return trainDao.loadTrainSubjectIds(tid);
     }
 
-    public List<Integer> listTrainGroupIds(Train train) {
-        return trainDao.listTrainGroupIds(train.getId());
+    public List<Integer> listTrainGroupIds(int tid) {
+        return trainDao.listTrainGroupIds(tid);
     }
 }

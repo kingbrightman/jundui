@@ -5,9 +5,6 @@
     <title>Title</title>
 </head>
 <body>
-<%
-    String contextPaht = request.getContextPath();
-%>
 
 <h1>训练信息</h1>
 <h2>训练名称：${train.name}</h2>
@@ -28,7 +25,7 @@
     <c:forEach items="${users}" var="user">
         <tr>
             <td>${user.id}</td>
-            <td>${user.name}</td>
+            <td><a href="${pageContext.request.contextPath}/admin/grade/show_user_grades/${train.id}/${user.id}"> ${user.name} </a></td>
             <td>${user.group.name}</td>
         </tr>
     </c:forEach>
@@ -51,7 +48,7 @@
             <td>${subject.id}</td>
             <td>${subject.name}</td>
             <td colspan="2">
-                <a href="${pageContext.request.contextPath}/admin/grade/show/${train.id}/${subject.id}">查看成绩</a>
+                <a href="${pageContext.request.contextPath}/admin/grade/show_subject_grades/${train.id}/${subject.id}">查看成绩</a>
                 <a href="${pageContext.request.contextPath}/admin/grade/update/${train.id}/${subject.id}">录入成绩</a>
             </td>
         </tr>

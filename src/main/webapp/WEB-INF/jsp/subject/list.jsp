@@ -30,7 +30,8 @@
         <c:forEach items="${datas.datas}" var="subject">
             <tr>
                 <td>${subject.id}</td>
-                <td>${subject.name}</td>
+                <td><a href="${pageContext.request.contextPath}/admin/subject/show/${subject.id}">${subject.name}</a>
+                </td>
                 <td>${subject.description}</td>
                 <td>${subject.type}</td>
                 <td>

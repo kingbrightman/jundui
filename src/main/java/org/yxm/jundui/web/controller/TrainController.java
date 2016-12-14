@@ -132,8 +132,8 @@ public class TrainController {
             return "redirect:/admin/train/list";
         }
 
-        List<Integer> subjects = trainService.listTrainSubjectIds(train);
-        List<Integer> groups = trainService.listTrainGroupIds(train);
+        List<Integer> subjects = trainService.listTrainSubjectIds(id);
+        List<Integer> groups = trainService.listTrainGroupIds(id);
         TrainDto trainDto = new TrainDto(train, subjects, groups);
 
         initAdd(model, loginUser.getGroup().getId());
@@ -171,17 +171,17 @@ public class TrainController {
     }
 
 
-    private void initShow(Model model, Train train) {
+    private void initShow(Model model, int tid) {
         // train所参加的部门，包含子部门
-        List<Integer> groupIds = trainService.listTrainGroupIds(train);
+        List<Integer> groupIds = trainService.listTrainGroupIds(tid);
         groupIds = groupService.listGroupsChildrenIds(groupIds);
         Collections.sort(groupIds); // 让结果按group分好
-        List<Integer> subjectIds = trainService.listTrainSubjectIds(train);
+        List<Integer> subjectIds = trainService.listTrainSubjectIds(tid);
 
         List<User> users = userService.listGroupsUsers(ArrayUtils.list2Array(groupIds));
         List<Subject> subjects = subjectService.list(ArrayUtils.list2Array(subjectIds));
 
-        model.addAttribute("train", train);
+        model.addAttribute("train", trainService.load(tid));
         model.addAttribute("users", users);
         model.addAttribute("subjects", subjects);
     }
@@ -190,7 +190,7 @@ public class TrainController {
     public String show(@PathVariable int id, Model model) {
         Train train = trainService.load(id);
 
-        initShow(model, train);
+        initShow(model, id);
 
         return "train/show";
     }

@@ -9,7 +9,7 @@
 
 <h3>错误信息:${ex.message}</h3>
 
-<h3><a href=”#” onClick="javascript :history.back(-1);">返回上一页</a></h3>
+<h3><a href=”#” onClick="javascript :history.back(-1);">返回</a></h3>
 
 </body>
 </html>
