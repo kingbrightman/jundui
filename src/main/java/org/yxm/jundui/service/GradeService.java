@@ -5,10 +5,7 @@ import org.springframework.stereotype.Service;
 import org.yxm.jundui.dao.GradeDao;
 import org.yxm.jundui.dao.SubjectDao;
 import org.yxm.jundui.dao.TrainDao;
-import org.yxm.jundui.model.Grade;
-import org.yxm.jundui.model.Subject;
-import org.yxm.jundui.model.Train;
-import org.yxm.jundui.model.User;
+import org.yxm.jundui.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +47,15 @@ public class GradeService {
         gradeDao.update(grade);
     }
 
-    public List<Grade> listUserTrainSubjectsGrades(int tid, int uid) {
-        return gradeDao.listUserTrainSubjectsGrades(tid, uid);
+    public Pager<Grade> find() {
+        return gradeDao.findAll();
+    }
+
+    public Pager<Grade> findGradeByContent(Integer tid, Integer sid, Integer uid) {
+        return gradeDao.findByContent(tid, sid, uid);
+    }
+
+    public Pager<Grade> findGradeByContent(Integer[] tids, Integer[] sids, Integer[] uids) {
+        return gradeDao.findByContent(tids,sids,uids);
     }
 }

@@ -18,15 +18,6 @@
           url="${param.url }">
 
     <span style="float:right;padding:6px;">
-    <%--
-    共
-    <pg:last>
-        ${pageNumber } 页[${param.totalRecord }条记录],每页显示<%=SystemContext.getPageSize() %>条,
-    </pg:last>
-    <c:forEach items="${param.params }" var="p">
-        <pg:param name="${p }"/>
-    </c:forEach>--%>
-
 
     <nav style="margin:0 auto; ">
 

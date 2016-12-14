@@ -18,7 +18,7 @@
             <td>成绩</td>
             <td>分数</td>
         </tr>
-        <c:forEach items="${grades}" var="grade">
+        <c:forEach items="${datas.datas}" var="grade">
             <tr>
                 <td>${grade.subject.id}</td>
                 <td>${grade.subject.name}</td>

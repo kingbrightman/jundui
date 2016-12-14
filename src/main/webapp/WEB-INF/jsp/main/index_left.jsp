@@ -14,9 +14,10 @@
         <li><a href="${pageContext.request.contextPath}/admin/user/list" target="content">用户管理</a></li>
         <li><a href="${pageContext.request.contextPath}/admin/subject/list" target="content">训练科目管理</a></li>
         <li><a href="${pageContext.request.contextPath}/admin/train/list" target="content">训练管理</a></li>
+        <li><a href="${pageContext.request.contextPath}/admin/grade/list" target="content">成绩查询</a></li>
     </ul>
 </div>
 
-    <script src="${pageContext.request.contextPath}/resources/js/temp.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/temp.js"></script>
 </body>
 </html>

@@ -7,12 +7,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.yxm.jundui.dao.GradeLevelDao;
 import org.yxm.jundui.exception.CmsException;
 import org.yxm.jundui.model.*;
 import org.yxm.jundui.service.*;
 import org.yxm.jundui.util.ArrayUtils;
 import org.yxm.jundui.util.GradeLevelUtil;
+import org.yxm.jundui.web.dto.GradeSelectDto;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Collections;
 import java.util.List;
 
@@ -36,6 +39,57 @@ public class GradeController {
     @Autowired
     GradeLevelService gradeLevelService;
 
+    @RequestMapping(value = "/list")
+    public String list(Model model, HttpServletRequest request, GradeSelectDto gradeSelectDto) {
+        //保存上一次的查询数据
+        request.getSession().setAttribute("gradeSelectDto", gradeSelectDto);
+
+        Integer[] tids = gradeSelectDto.getTids();
+        Integer[] sids = gradeSelectDto.getSids();
+        Integer[] uids = gradeSelectDto.getUids();
+
+        Pager<Grade> datas = gradeService.findGradeByContent(tids, sids, uids);
+        model.addAttribute("datas", datas);
+
+        List<User> users = userService.list();
+        model.addAttribute("users", users);
+
+        List<Train> trains = trainService.list();
+        model.addAttribute("trains", trains);
+
+        List<Subject> subjects = subjectService.list();
+        model.addAttribute("subjects", subjects);
+
+        return "grade/list";
+    }
+
+    /**
+     * 将分页和部分也的分开，因为 gradeSelectDto 会冲突
+     */
+    @RequestMapping(value = "/list_page")
+    public String list(Model model, HttpServletRequest request) {
+        GradeSelectDto gradeSelectDto = (GradeSelectDto) request.getSession().getAttribute("gradeSelectDto");
+        model.addAttribute("gradeSelectDto", gradeSelectDto);
+
+        Integer[] tids = gradeSelectDto.getTids();
+        Integer[] sids = gradeSelectDto.getSids();
+        Integer[] uids = gradeSelectDto.getUids();
+
+        Pager<Grade> datas = gradeService.findGradeByContent(tids, sids, uids);
+        model.addAttribute("datas", datas);
+
+        List<User> users = userService.list();
+        model.addAttribute("users", users);
+
+        List<Train> trains = trainService.list();
+        model.addAttribute("trains", trains);
+
+        List<Subject> subjects = subjectService.list();
+        model.addAttribute("subjects", subjects);
+
+        return "grade/list";
+    }
+
     @RequestMapping(value = "/update/{tid}/{sid}")
     public String update(@PathVariable int tid, @PathVariable int sid, Model model) {
         Train train = trainService.load(tid);
@@ -43,7 +97,7 @@ public class GradeController {
         Subject subject = subjectService.load(sid);
         model.addAttribute(subject);
 
-        initGrades(tid, sid, model);
+        initGradesContrainsNull(tid, sid, model);
         return "grade/update";
     }
 
@@ -80,7 +134,7 @@ public class GradeController {
         Subject subject = subjectService.load(sid);
         model.addAttribute(subject);
 
-        initGrades(tid, sid, model);
+        initGradesContrainsNull(tid, sid, model);
         return "grade/show_subject_train_grades";
     }
 
@@ -91,13 +145,14 @@ public class GradeController {
         User user = userService.load(uid);
         model.addAttribute(user);
 
-        List<Grade> grades = gradeService.listUserTrainSubjectsGrades(tid, uid);
-        model.addAttribute("grades", grades);
+        Pager<Grade> datas = gradeService.findGradeByContent(tid, null, uid);
+        model.addAttribute("datas", datas);
 
         return "grade/show_user_train_grades";
     }
 
-    private void initGrades(int tid, int sid, Model model) {
+    //获得所有参加训练该项目的所有成员的成绩，包括空
+    private void initGradesContrainsNull(int tid, int sid, Model model) {
         List<Integer> groupIds = trainService.listTrainGroupIds(tid);
         groupIds = groupService.listGroupsChildrenIds(groupIds);
         Collections.sort(groupIds);
@@ -109,10 +164,10 @@ public class GradeController {
 
     private String caculateScore(SubjectType type, String content, GradeLevel level) {
         if (GradeLevelUtil.isNullOrEmpty(content)) {
-            return "没有成绩";
+            return "无成绩";
         }
         if (content.equals("-1")) {
-            return "因病不参加";
+            return "未参加";
         }
         if (type == SubjectType.INT) {
             return GradeLevelUtil.calculateINT(content, level);
