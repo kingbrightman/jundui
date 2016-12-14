@@ -61,12 +61,7 @@ public class TrainController {
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String add(Model model, HttpServletRequest request) {
         User loginUser = getLoginUser(request);
-        if (loginUser == null) {
-            return "redirect:/login";
-        }
-
         TrainDto trainDto = new TrainDto();
-
 
         model.addAttribute("trainDto", trainDto);
         initAdd(model, loginUser.getGroup().getId());
@@ -81,9 +76,6 @@ public class TrainController {
         }
 
         User loginUser = getLoginUser(request);
-        if (loginUser == null) {
-            return "redirect:/login";
-        }
 
         Train train = trainDto.getTrain();
         train.setCreateDate(new Date());
@@ -91,7 +83,9 @@ public class TrainController {
         trainService.add(train);
 
         trainService.updateTrainSubjects(train, trainDto.getSubjects());
-        trainService.updateTrainGroups(train, trainDto.getGroups());
+        //TODO: 在UI上做这个逻辑控制，选择了父节点，则选择所有子节点
+        List<Integer> groupAndChildIds = groupService.listGroupsChildrenIds(Arrays.asList(trainDto.getGroups()));
+        trainService.updateTrainGroups(train, ArrayUtils.list2Array(groupAndChildIds));
 
         return "redirect:/admin/train/list";
     }
@@ -120,12 +114,9 @@ public class TrainController {
     public String update(@PathVariable int id, Model model, HttpServletRequest request) {
         Train train = trainService.load(id);
 
-        // 如果创建用户和当前用户不一样，不能更改
         User loginUser = getLoginUser(request);
-        if (loginUser == null) {
-            return "redirect:/login";
-        }
 
+        // 如果创建用户和当前用户不一样，不能更改
         if (train.getCreateUser().getId() != loginUser.getId()) {
             model.addAttribute("datas", trainService.find());
             request.setAttribute(Constants.ERROR_INFO, "该训练不是由你创建，不能修改");
@@ -188,10 +179,7 @@ public class TrainController {
 
     @RequestMapping(value = "/show/{id}")
     public String show(@PathVariable int id, Model model) {
-        Train train = trainService.load(id);
-
         initShow(model, id);
-
         return "train/show";
     }
 

@@ -5,6 +5,7 @@ import org.yxm.jundui.model.Pager;
 import org.yxm.jundui.model.Subject;
 import org.yxm.jundui.model.Train;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -21,6 +22,7 @@ public class SubjectDao extends BaseDao<Subject> {
     }
 
     public List<Subject> list(Integer[] ids) {
+        if (ids == null || ids.length < 1) return Collections.emptyList();
         String hql = "from Subject s where s.id in (:ids)";
         return this.getSession().createQuery(hql)
                 .setParameterList("ids", ids).list();

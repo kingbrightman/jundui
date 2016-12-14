@@ -36,16 +36,6 @@ public class GradeController {
     @Autowired
     GradeLevelService gradeLevelService;
 
-    private void initGrades(int tid, int sid, Model model) {
-        List<Integer> groupIds = trainService.listTrainGroupIds(tid);
-        groupIds = groupService.listGroupsChildrenIds(groupIds);
-        Collections.sort(groupIds);
-        List<User> users = userService.listGroupsUsers(ArrayUtils.list2Array(groupIds));
-
-        List<Grade> grades = gradeService.initAndListUsersGrade(tid, sid, users);
-        model.addAttribute("grades", grades);
-    }
-
     @RequestMapping(value = "/update/{tid}/{sid}")
     public String update(@PathVariable int tid, @PathVariable int sid, Model model) {
         Train train = trainService.load(tid);
@@ -83,29 +73,38 @@ public class GradeController {
         return "redirect:/admin/train/show/" + tid;
     }
 
-    @RequestMapping(value = "/show_subject_grades/{tid}/{sid}")
-    public String showSubjectGrades(@PathVariable int tid, @PathVariable int sid, Model model) {
+    @RequestMapping(value = "/show_subject_train_grades/{tid}/{sid}")
+    public String showSubjectTrainGrades(@PathVariable int tid, @PathVariable int sid, Model model) {
         Train train = trainService.load(tid);
         model.addAttribute(train);
         Subject subject = subjectService.load(sid);
         model.addAttribute(subject);
 
         initGrades(tid, sid, model);
-        return "grade/show_subject_grades";
+        return "grade/show_subject_train_grades";
     }
 
-    @RequestMapping(value = "/show_user_grades/{tid}/{uid}")
-    public String showUserGrades(@PathVariable int tid, @PathVariable int uid, Model model) {
+    @RequestMapping(value = "/show_user_train_grades/{tid}/{uid}")
+    public String showUserTrainGrades(@PathVariable int tid, @PathVariable int uid, Model model) {
         Train train = trainService.load(tid);
         model.addAttribute(train);
         User user = userService.load(uid);
         model.addAttribute(user);
 
         List<Grade> grades = gradeService.listUserTrainSubjectsGrades(tid, uid);
-        System.out.println(grades.size());
         model.addAttribute("grades", grades);
 
-        return "grade/show_user_grades";
+        return "grade/show_user_train_grades";
+    }
+
+    private void initGrades(int tid, int sid, Model model) {
+        List<Integer> groupIds = trainService.listTrainGroupIds(tid);
+        groupIds = groupService.listGroupsChildrenIds(groupIds);
+        Collections.sort(groupIds);
+        List<User> users = userService.listGroupsUsers(ArrayUtils.list2Array(groupIds));
+
+        List<Grade> grades = gradeService.initAndListUsersGrade(tid, sid, users);
+        model.addAttribute("grades", grades);
     }
 
     private String caculateScore(SubjectType type, String content, GradeLevel level) {

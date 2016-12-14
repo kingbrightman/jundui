@@ -7,6 +7,7 @@ import java.util.List;
  */
 public class ArrayUtils {
     public static Integer[] list2Array(List<Integer> datas) {
+        if (datas == null) return new Integer[]{};
         Integer[] nums = new Integer[datas.size()];
         for (int i = 0; i < datas.size(); i++) {
             nums[i] = datas.get((int) i);
