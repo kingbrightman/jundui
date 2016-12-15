@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>训练项目列表</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/temp.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap-theme.min.css">
 </head>
@@ -16,7 +16,7 @@
 <div class="col-sm-12">
     <a href="add" class="btn btn-default btn-lg  btn-sm" role="button">添加</a>
 
-    <table class="table table-hover" id="list_table">
+    <table class="table table-hover table-bordered" id="list_table">
         <thead>
         <tr>
             <td>ID</td>

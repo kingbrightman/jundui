@@ -3,23 +3,17 @@
 <html>
 <head>
     <title>Title</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap-theme.min.css">
 </head>
 <body>
 
-<h1>训练信息</h1>
-<h2>训练名称：${train.name}</h2>
-<h2>训练级别：${train.level.name}</h2>
 
-<br>
-<h2>参加成员</h2>
-<table border="1px solid #000">
-    <thead>
-    <tr>
-        <td>编号</td>
-        <td>姓名</td>
-        <td>所属队伍</td>
-    </tr>
-    </thead>
+<ul class="breadcrumb" id="breadcrumb">
+    <li class="active">训练管理</li>
+    <li class="active">训练信息</li>
+</ul>
 
     <tbody>
     <c:forEach items="${users}" var="user">
@@ -31,30 +25,51 @@
     </c:forEach>
     </tbody>
 </table>
+<div class="col-sm-12">
+    <p style="text-align:center; font-size: 20px; font-family:'Microsoft Yahei', '微软雅黑', Arial, sans-serif;">训练名称：${train.name} &nbsp;&nbsp;&nbsp;级别： ${train.level.name}</p>
 
-<br>
-<h2>所有项目</h2>
-<table border="1px solid #000">
-    <thead>
-    <tr>
-        <td>科目编号</td>
-        <td>科目名称</td>
-        <td>操作</td>
-    </tr>
-    </thead>
-    <tbody>
-    <c:forEach items="${subjects}" var="subject">
+     <span>参加成员</span>
+     <table  class="table table-hover table-bordered" id="list_table">
+        <thead>
         <tr>
-            <td>${subject.id}</td>
-            <td>${subject.name}</td>
-            <td colspan="2">
-                <a href="${pageContext.request.contextPath}/admin/grade/show_subject_train_grades/${train.id}/${subject.id}">查看成绩</a>
-                <a href="${pageContext.request.contextPath}/admin/grade/update/${train.id}/${subject.id}">录入成绩</a>
-            </td>
+            <td>编号</td>
+            <td>姓名</td>
+            <td>所属队伍</td>
         </tr>
-    </c:forEach>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+        <c:forEach items="${users}" var="user">
+            <tr>
+                <td>${user.id}</td>
+                <td>${user.name}</td>
+                <td>${user.group.name}</td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
 
+    <br>
+    <span>所有项目</span>
+    <table class="table table-hover table-bordered" id="list_table">
+        <thead>
+        <tr>
+            <td>科目编号</td>
+            <td>科目名称</td>
+            <td>操作</td>
+        </thead>
+        <tbody>
+        <c:forEach items="${subjects}" var="subject">
+            <tr>
+                <td>${subject.id}</td>
+                <td>${subject.name}</td>
+                <td colspan="2">
+                    <a href="${pageContext.request.contextPath}/admin/grade/show/${train.id}/${subject.id}">查看成绩</a>
+                    <a href="${pageContext.request.contextPath}/admin/grade/update/${train.id}/${subject.id}">录入成绩</a>
+                </td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>
