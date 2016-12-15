@@ -24,7 +24,7 @@
                 <td><sf:input path="name"/><sf:errors path="name"/></td>
             </tr>
             <tr>
-                <td>昵称</td>
+                <td>登录名</td>
                 <td><sf:input path="username"/></td>
             </tr>
             <tr>

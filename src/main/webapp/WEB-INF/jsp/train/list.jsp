@@ -19,7 +19,7 @@
     <%--error_info--%>
     <p style="color: red;">${ error_info}</p>
 
-    <table class="table table-hover" id="list_table">
+    <table class="table table-hover table-bordered" id="list_table">
         <thead>
         <tr>
             <td>ID</td>
