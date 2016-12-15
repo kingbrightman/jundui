@@ -9,27 +9,17 @@
 </head>
 <body>
 
-
 <ul class="breadcrumb" id="breadcrumb">
     <li class="active">训练管理</li>
     <li class="active">训练信息</li>
 </ul>
 
-    <tbody>
-    <c:forEach items="${users}" var="user">
-        <tr>
-            <td>${user.id}</td>
-            <td><a href="${pageContext.request.contextPath}/admin/grade/show_user_train_grades/${train.id}/${user.id}"> ${user.name} </a></td>
-            <td>${user.group.name}</td>
-        </tr>
-    </c:forEach>
-    </tbody>
-</table>
 <div class="col-sm-12">
-    <p style="text-align:center; font-size: 20px; font-family:'Microsoft Yahei', '微软雅黑', Arial, sans-serif;">训练名称：${train.name} &nbsp;&nbsp;&nbsp;级别： ${train.level.name}</p>
+    <p style="text-align:center; font-size: 20px; font-family:'Microsoft Yahei', '微软雅黑', Arial, sans-serif;">
+        训练名称：${train.name} &nbsp;&nbsp;&nbsp;级别： ${train.level.name}</p>
 
-     <span>参加成员</span>
-     <table  class="table table-hover table-bordered" id="list_table">
+    <span>参加成员</span>
+    <table class="table table-hover table-bordered" id="list_table">
         <thead>
         <tr>
             <td>编号</td>
@@ -41,7 +31,9 @@
         <c:forEach items="${users}" var="user">
             <tr>
                 <td>${user.id}</td>
-                <td>${user.name}</td>
+                <td>
+                    <a href="${pageContext.request.contextPath}/admin/grade/show_user_train_grades/${train.id}/${user.id}"> ${user.name}</a>
+                </td>
                 <td>${user.group.name}</td>
             </tr>
         </c:forEach>
@@ -63,7 +55,7 @@
                 <td>${subject.id}</td>
                 <td>${subject.name}</td>
                 <td colspan="2">
-                    <a href="${pageContext.request.contextPath}/admin/grade/show/${train.id}/${subject.id}">查看成绩</a>
+                    <a href="${pageContext.request.contextPath}/admin/grade/show_subject_train_grades/${train.id}/${subject.id}">查看成绩</a>
                     <a href="${pageContext.request.contextPath}/admin/grade/update/${train.id}/${subject.id}">录入成绩</a>
                 </td>
             </tr>
