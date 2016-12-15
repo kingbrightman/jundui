@@ -57,8 +57,8 @@
             <td>${grade.content}</td>
             <td>${grade.score}</td>
             <td>
-                <a href="#">修改</a>
-                <a href="#">删除</a>
+                <a href="${pageContext.request.contextPath}/admin/grade/update_grade/${grade.id}">修改</a>
+                <a href="${pageContext.request.contextPath}/admin/grade/delete/${grade.id}">删除</a>
             </td>
         </tr>
     </c:forEach>
