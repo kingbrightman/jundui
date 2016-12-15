@@ -6,6 +6,9 @@ package org.yxm.jundui.base;
 public class Constants {
 
     public static final String LOGIN_USER = "login_user";
+    public static final String GRADE_SELECT = "gradeSelectDto";
+    public static final String GRADE_SORT = "sort";
+    public static final String GRADE_ORDER = "order";
 
     public static final String ERROR_INFO = "error_info";
 }

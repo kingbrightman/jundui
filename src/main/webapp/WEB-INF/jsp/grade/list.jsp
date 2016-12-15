@@ -9,7 +9,7 @@
 <h1>成绩查询</h1>
 
 <div>
-    <sf:form modelAttribute="gradeSelectDto" action="list">
+    <sf:form modelAttribute="gradeSelectDto" action="list_select">
         <sf:select path="uids">
             <sf:option value="" label="无"/>
             <sf:options items="${users}" itemValue="id" itemLabel="name"/>
@@ -24,8 +24,17 @@
             <sf:option value="" label="无"/>
             <sf:options items="${subjects}" itemValue="id" itemLabel="name"/>
         </sf:select>
+
+        <sf:select path="gids">
+            <sf:option value="" label="无"/>
+            <sf:options items="${groups}" itemValue="id" itemLabel="name"/>
+        </sf:select>
+
         <input type="submit" value="查询">
     </sf:form>
+
+    <a href="list_sort?sort=content*1&order=desc">降序</a>
+    <a href="list_sort?sort=content*1&order=asc">升序</a>
 </div>
 
 
@@ -59,7 +68,7 @@
 <div>
     <jsp:include page="/jsp/bootstrap_pager.jsp">
         <jsp:param value="${datas.total }" name="totalRecord"/>
-        <jsp:param value="list_page" name="url"/>
+        <jsp:param value="list" name="url"/>
     </jsp:include>
 </div>
 </body>

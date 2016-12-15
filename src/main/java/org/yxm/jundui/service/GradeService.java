@@ -7,8 +7,7 @@ import org.yxm.jundui.dao.SubjectDao;
 import org.yxm.jundui.dao.TrainDao;
 import org.yxm.jundui.model.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by yxm on 2016.11.28.
@@ -22,7 +21,6 @@ public class GradeService {
     TrainDao trainDao;
     @Autowired
     SubjectDao subjectDao;
-
 
     public List<Grade> initAndListUsersGrade(int tid, int sid, List<User> users) {
         List<Grade> grades = new ArrayList<>();
@@ -55,7 +53,7 @@ public class GradeService {
         return gradeDao.findByContent(tid, sid, uid);
     }
 
-    public Pager<Grade> findGradeByContent(Integer[] tids, Integer[] sids, Integer[] uids) {
-        return gradeDao.findByContent(tids,sids,uids);
+    public Pager<Grade> findGradeByContents(Integer[] tids, Integer[] sids, Integer[] uids, Integer[] gids) {
+        return gradeDao.findGradeByContents(tids, sids, uids, gids);
     }
 }

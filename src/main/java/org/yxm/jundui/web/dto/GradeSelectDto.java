@@ -7,6 +7,8 @@ public class GradeSelectDto {
     Integer[] tids;
     Integer[] sids;
     Integer[] uids;
+    Integer[] gids;
+    String orderByGrade;
 
     public GradeSelectDto() {
     }
@@ -33,5 +35,21 @@ public class GradeSelectDto {
 
     public void setUids(Integer[] uids) {
         this.uids = uids;
+    }
+
+    public Integer[] getGids() {
+        return gids;
+    }
+
+    public void setGids(Integer[] gids) {
+        this.gids = gids;
+    }
+
+    public String getOrderByGrade() {
+        return orderByGrade;
+    }
+
+    public void setOrderByGrade(String orderByGrade) {
+        this.orderByGrade = orderByGrade;
     }
 }

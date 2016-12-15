@@ -1,10 +1,8 @@
 package org.yxm.jundui.dao;
 
-import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 import org.yxm.jundui.model.Grade;
 import org.yxm.jundui.model.Pager;
-import org.yxm.jundui.util.ArrayUtils;
 
 import java.util.*;
 
@@ -42,7 +40,7 @@ public class GradeDao extends BaseDao<Grade> {
         return this.find(hql, args.toArray());
     }
 
-    public Pager<Grade> findByContent(Integer[] tids, Integer[] sids, Integer[] uids) {
+    public Pager<Grade> findGradeByContents(Integer[] tids, Integer[] sids, Integer[] uids, Integer[] gids) {
         String hql = "from Grade where 1=1 ";
         Map<String, Object> alias = new HashMap<>();
 
@@ -62,6 +60,10 @@ public class GradeDao extends BaseDao<Grade> {
             alias.put("uids", Arrays.asList(uids));
         }
 
+        if (gids != null && gids.length > 0) {
+            hql += " and user.group.id in (:gids)";
+            alias.put("gids", Arrays.asList(gids));
+        }
 
         return this.findByAlias(hql, alias);
     }

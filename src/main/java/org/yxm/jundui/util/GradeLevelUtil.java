@@ -1,6 +1,10 @@
 package org.yxm.jundui.util;
 
+import org.yxm.jundui.model.Grade;
 import org.yxm.jundui.model.GradeLevel;
+import org.yxm.jundui.model.SubjectType;
+
+import java.util.Comparator;
 
 /**
  * Created by yxm on 2016.12.07.
@@ -178,5 +182,51 @@ public class GradeLevelUtil {
             return true;
         }
         return false;
+    }
+
+    public static class GradeComparator implements Comparator<Grade> {
+
+        SubjectType subjectType;
+
+        public GradeComparator(SubjectType subjectType) {
+            this.subjectType = subjectType;
+        }
+
+        public SubjectType getSubjectType() {
+            return subjectType;
+        }
+
+        public void setSubjectType(SubjectType subjectType) {
+            this.subjectType = subjectType;
+        }
+
+        @Override
+        public int compare(Grade x, Grade y) {
+            if (x.getContent().equals(y.getContent())) {
+                return 0;
+            }
+            if (SubjectType.INT == subjectType) {
+                if (Integer.parseInt(x.getContent()) > Integer.parseInt(y.getContent())) {
+                    return 1;
+                }
+                return -1;
+            } else if (SubjectType.FLOAT == subjectType) {
+                if (Float.parseFloat(x.getContent()) > Float.parseFloat(y.getContent())) {
+                    return 1;
+                }
+                return -1;
+            } else if (SubjectType.TIME == subjectType) {
+                if (GradeLevelUtil.getSeconds(x.getContent()) > GradeLevelUtil.getSeconds(y.getContent())) {
+                    return 1;
+                }
+                return -1;
+            } else if (SubjectType.MESC == subjectType) {
+                if (GradeLevelUtil.getMesc(x.getContent()) > GradeLevelUtil.getMesc(y.getContent())) {
+                    return 1;
+                }
+                return -1;
+            }
+            return 1;
+        }
     }
 }

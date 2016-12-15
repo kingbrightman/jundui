@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.yxm.jundui.dao.GradeLevelDao;
+import org.yxm.jundui.base.Constants;
 import org.yxm.jundui.exception.CmsException;
 import org.yxm.jundui.model.*;
 import org.yxm.jundui.service.*;
@@ -16,7 +16,9 @@ import org.yxm.jundui.util.GradeLevelUtil;
 import org.yxm.jundui.web.dto.GradeSelectDto;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -40,43 +42,88 @@ public class GradeController {
     GradeLevelService gradeLevelService;
 
     @RequestMapping(value = "/list")
-    public String list(Model model, HttpServletRequest request, GradeSelectDto gradeSelectDto) {
-        //保存上一次的查询数据
-        request.getSession().setAttribute("gradeSelectDto", gradeSelectDto);
+    public String list(Model model, HttpServletRequest request) {
+        GradeSelectDto gradeSelectDto = (GradeSelectDto) request.getSession().getAttribute(Constants.GRADE_SELECT);
 
-        Integer[] tids = gradeSelectDto.getTids();
-        Integer[] sids = gradeSelectDto.getSids();
-        Integer[] uids = gradeSelectDto.getUids();
+        initSortAndOrder(request);
 
-        Pager<Grade> datas = gradeService.findGradeByContent(tids, sids, uids);
-        model.addAttribute("datas", datas);
+        if (gradeSelectDto == null) {
+            gradeSelectDto = new GradeSelectDto();
+        }
+        model.addAttribute(Constants.GRADE_SELECT, gradeSelectDto);
 
-        List<User> users = userService.list();
-        model.addAttribute("users", users);
+        initListDatas(gradeSelectDto, model);
 
-        List<Train> trains = trainService.list();
-        model.addAttribute("trains", trains);
+        return "grade/list";
+    }
 
-        List<Subject> subjects = subjectService.list();
-        model.addAttribute("subjects", subjects);
+    //TODO:sort 单独处理
+    @RequestMapping(value = "/list_sort")
+    public String list_sort(Model model, HttpServletRequest request) {
+        GradeSelectDto gradeSelectDto = (GradeSelectDto) request.getSession().getAttribute(Constants.GRADE_SELECT);
+
+        // 添加sort和order，到分页查询依然有效
+        String sort = SystemContext.getSort();
+        String order = SystemContext.getOrder();
+        request.getSession().setAttribute(Constants.GRADE_SORT, sort);
+        request.getSession().setAttribute(Constants.GRADE_ORDER, order);
+
+
+        if (gradeSelectDto == null) {
+            gradeSelectDto = new GradeSelectDto();
+        }
+        model.addAttribute(Constants.GRADE_SELECT, gradeSelectDto);
+
+        initListDatas(gradeSelectDto, model);
 
         return "grade/list";
     }
 
     /**
-     * 将分页和部分也的分开，因为 gradeSelectDto 会冲突
+     * form提交上来需要改变参数的请求
      */
-    @RequestMapping(value = "/list_page")
-    public String list(Model model, HttpServletRequest request) {
-        GradeSelectDto gradeSelectDto = (GradeSelectDto) request.getSession().getAttribute("gradeSelectDto");
-        model.addAttribute("gradeSelectDto", gradeSelectDto);
+    @RequestMapping(value = "/list_select")
+    public String list_select(Model model, HttpServletRequest request, GradeSelectDto gradeSelectDto) {
+        Integer[] gids = gradeSelectDto.getGids();
+        // 添加子团体
+        if (gids != null && gids.length > 0) {
+            gids = ArrayUtils.list2Array(groupService.listGroupsChildrenIds(Arrays.asList(gids)));
+            gradeSelectDto.setGids(gids);
+        }
 
+        //保存上一次的查询数据，分页查询依然有效
+        request.getSession().setAttribute(Constants.GRADE_SELECT, gradeSelectDto);
+
+        initListDatas(gradeSelectDto, model);
+
+        return "grade/list";
+    }
+
+    // 装配sort和order
+    private void initSortAndOrder(HttpServletRequest request) {
+        // 如果session中又sort,则直接装配道systemcontext中
+        String sort = (String) request.getSession().getAttribute(Constants.GRADE_SORT);
+        String order = (String) request.getSession().getAttribute(Constants.GRADE_ORDER);
+        SystemContext.setSort(sort);
+        SystemContext.setOrder(order);
+    }
+
+    // 生成list所需要的数据
+    private void initListDatas(GradeSelectDto gradeSelectDto, Model model) {
         Integer[] tids = gradeSelectDto.getTids();
         Integer[] sids = gradeSelectDto.getSids();
         Integer[] uids = gradeSelectDto.getUids();
+        Integer[] gids = gradeSelectDto.getGids();
 
-        Pager<Grade> datas = gradeService.findGradeByContent(tids, sids, uids);
+        Pager<Grade> datas = gradeService.findGradeByContents(tids, sids, uids, gids);
+        // 重新填入数据
         model.addAttribute("datas", datas);
+        // 避免一次请求，多次查询都使用排序关键字
+        SystemContext.removeOrder();
+        SystemContext.removeSort();
+
+        List<Group> groups = groupService.list();
+        model.addAttribute("groups", groups);
 
         List<User> users = userService.list();
         model.addAttribute("users", users);
@@ -86,8 +133,6 @@ public class GradeController {
 
         List<Subject> subjects = subjectService.list();
         model.addAttribute("subjects", subjects);
-
-        return "grade/list";
     }
 
     @RequestMapping(value = "/update/{tid}/{sid}")

@@ -48,6 +48,7 @@ public class LoginController {
     @RequestMapping(value = "/logout")
     public String logout(HttpServletRequest request) {
         request.getSession().removeAttribute(Constants.LOGIN_USER);
+        request.getSession().removeAttribute(Constants.GRADE_SELECT);
         return "redirect:/admin/main/index";
     }
 }
