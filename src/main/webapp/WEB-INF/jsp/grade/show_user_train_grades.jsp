@@ -3,31 +3,39 @@
 <html>
 <head>
     <title>录入成绩</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap-theme.min.css">
 </head>
 <body>
-<h1>成绩查看</h1>
 
-<h2>训练名称：<a href="${pageContext.request.contextPath}/admin/train/show/${train.id}">${train.name}</a></h2>
-<h2>新兵：${user.name}</h2>
+<ul class="breadcrumb" id="breadcrumb">
+    <li class="active">训练管理</li>
+    <li class="active">个人成绩查看</li>
+</ul>
 
-<form method="post">
-    <table border="1px solid #000">
-        <tr>
-            <td>项目ID</td>
-            <td>项目名称</td>
-            <td>成绩</td>
-            <td>分数</td>
-        </tr>
-        <c:forEach items="${datas.datas}" var="grade">
+<div class="col-sm-6" >
+    <p style="text-align:center; font-size: 20px; font-family:'Microsoft Yahei', '微软雅黑', Arial, sans-serif;">
+        训练名称：<a href="${pageContext.request.contextPath}/admin/train/show/${train.id}">${train.name}</a> &nbsp;&nbsp;&nbsp;新兵：${user.name}</p>
+
+    <form method="post" style="text-align: center;">
+        <table class="table table-hover table-bordered" style="text-align: center;">
             <tr>
-                <td>${grade.subject.id}</td>
-                <td>${grade.subject.name}</td>
-                <td>${grade.content}</td>
-                <td>${grade.score}</td>
+                <td>项目ID</td>
+                <td>项目名称</td>
+                <td>成绩</td>
+                <td>分数</td>
             </tr>
-        </c:forEach>
-    </table>
-</form>
-
+            <c:forEach items="${datas.datas}" var="grade">
+                <tr>
+                    <td>${grade.subject.id}</td>
+                    <td>${grade.subject.name}</td>
+                    <td>${grade.content}</td>
+                    <td>${grade.score}</td>
+                </tr>
+            </c:forEach>
+        </table>
+    </form>
+</div>
 </body>
 </html>
