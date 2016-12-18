@@ -6,7 +6,6 @@ import org.yxm.jundui.dao.GroupDao;
 import org.yxm.jundui.exception.CmsException;
 import org.yxm.jundui.model.Group;
 import org.yxm.jundui.model.Pager;
-import org.yxm.jundui.model.Train;
 import org.yxm.jundui.model.User;
 
 import java.util.ArrayList;

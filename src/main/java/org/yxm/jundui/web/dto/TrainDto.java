@@ -5,7 +5,6 @@ import org.yxm.jundui.model.Train;
 import org.yxm.jundui.model.TrainLevel;
 import org.yxm.jundui.model.User;
 
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 

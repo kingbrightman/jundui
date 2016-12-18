@@ -6,7 +6,6 @@ import org.yxm.jundui.model.User;
 import org.yxm.jundui.model.UserType;
 import org.yxm.jundui.util.ArrayUtils;
 
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 

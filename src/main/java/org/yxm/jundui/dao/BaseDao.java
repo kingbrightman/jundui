@@ -3,13 +3,6 @@
  */
 package org.yxm.jundui.dao;
 
-import java.lang.reflect.ParameterizedType;
-import java.math.BigInteger;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
@@ -17,9 +10,14 @@ import org.hibernate.SessionFactory;
 import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.yxm.jundui.model.Pager;
-import org.yxm.jundui.model.Subject;
 import org.yxm.jundui.model.SystemContext;
-import org.yxm.jundui.model.Train;
+
+import java.lang.reflect.ParameterizedType;
+import java.math.BigInteger;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Administrator

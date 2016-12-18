@@ -3,7 +3,6 @@ package org.yxm.jundui.dao;
 import org.springframework.stereotype.Repository;
 import org.yxm.jundui.model.Group;
 import org.yxm.jundui.model.Pager;
-import org.yxm.jundui.model.Train;
 import org.yxm.jundui.model.User;
 
 import java.util.ArrayList;

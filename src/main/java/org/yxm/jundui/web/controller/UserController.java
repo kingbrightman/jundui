@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.yxm.jundui.exception.CmsException;
-import org.yxm.jundui.model.RoleType;
 import org.yxm.jundui.model.Train;
 import org.yxm.jundui.model.User;
 import org.yxm.jundui.model.UserType;
