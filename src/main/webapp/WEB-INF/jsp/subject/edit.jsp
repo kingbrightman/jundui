@@ -14,9 +14,7 @@
     <li class="active">添加训练科目</li>
 </ul>
 
-<h3><a href=”#” onClick="javascript :history.back(-1);">返回</a></h3>
-
-<div style="margin-left:10px; margin-top: 10px;">
+<div  class="col-sm-6">
     <sf:form modelAttribute="subjectDto" method="post">
 
         <table class="table table-bordered" style="width: auto;">
@@ -49,6 +47,7 @@
             <tr>
                 <td colspan="2">
                     <input class="btn btn-default" type="submit" value="提交">
+                    <button href=”#” onClick="javascript :history.back(-1);" class="btn btn-default">返回</>
                 </td>
             </tr>
             </tbody>
