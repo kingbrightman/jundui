@@ -28,7 +28,7 @@
             <c:forEach items="${grades}" var="grade">
                 <tr>
                     <td>${grade.user.name}</td>
-                    <input  name="uid" type="hidden" value="${grade.user.id}">
+                    <input class="form-control"  name="uid" type="hidden" value="${grade.user.id}">
                     <td><input  name="content" class="form-control" type="text" value="${grade.content}" style="border:0;"></td>
                 </tr>
             </c:forEach>

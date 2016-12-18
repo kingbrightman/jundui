@@ -14,9 +14,7 @@
     <li class="active">添加训练科目</li>
 </ul>
 
-<h3><a href=”#” onClick="javascript :history.back(-1);">返回</a></h3>
-
-<div style="margin-left:10px; margin-top: 10px;">
+<div  class="col-sm-6">
     <table class="table table-bordered" style="width: auto;">
         <tbody>
         <tr>
@@ -44,6 +42,7 @@
         <tr>
             <td colspan="2">
                 <a class="btn btn-default" href="${pageContext.request.contextPath}/admin/subject/update/${subject.id}">修改</a>
+                <button  class="btn btn-default" href=”#” onClick="javascript :history.back(-1);" >返回</button>
             </td>
         </tr>
         </tbody>

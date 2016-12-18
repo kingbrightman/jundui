@@ -13,7 +13,7 @@
     <li class="active">训练管理</li>
     <li class="active">成绩查看</li>
 </ul>
-<div class="col-sm-12">
+<div class="col-sm-9">
     <p style="text-align:center; font-size: 20px; font-family:'Microsoft Yahei', '微软雅黑', Arial, sans-serif;">训练名称：<a href="${pageContext.request.contextPath}/admin/train/show/${train.id}">${train.name}</a> &nbsp;&nbsp;&nbsp; 科目名称：<a href="${pageContext.request.contextPath}/admin/subject/show/${subject.id}">${subject.name}</a></p>
 
     <form method="post">
