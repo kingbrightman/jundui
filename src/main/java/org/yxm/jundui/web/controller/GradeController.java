@@ -1,8 +1,11 @@
 package org.yxm.jundui.web.controller;
 
+import com.sun.xml.internal.messaging.saaj.soap.GifDataContentHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -172,6 +175,36 @@ public class GradeController {
         return "redirect:/admin/train/show/" + tid;
     }
 
+    @RequestMapping(value = "/update_grade/{gid}", method = RequestMethod.GET)
+    public String updateGrade(@PathVariable int gid, Model model) {
+        Grade grade = gradeService.load(gid);
+        model.addAttribute("grade", grade);
+        return "grade/edit";
+    }
+
+    @RequestMapping(value = "/update_grade/{gid}", method = RequestMethod.POST)
+    public String updateGrade(Grade grade, @PathVariable int gid, Model model) {
+        System.out.println("grade:" + grade);
+        if (grade.getContent() == null) {
+            return "grade/edit";
+        }
+        Grade oldGrade = gradeService.load(gid);
+
+        Subject subject = oldGrade.getSubject();
+        String score = caculateScore(subject.getType(), grade.getContent(), gradeLevelService.load(subject.getId()));
+
+        oldGrade.setContent(grade.getContent());
+        oldGrade.setScore(score);
+        gradeService.update(oldGrade);
+        return "redirect:/admin/grade/list";
+    }
+
+    @RequestMapping(value = "/delete/{gid}")
+    public String delete(@PathVariable int gid) {
+        gradeService.delete(gid);
+        return "redirect:/admin/grade/list";
+    }
+
     @RequestMapping(value = "/show_subject_train_grades/{tid}/{sid}")
     public String showSubjectTrainGrades(@PathVariable int tid, @PathVariable int sid, Model model) {
         Train train = trainService.load(tid);
@@ -210,9 +243,6 @@ public class GradeController {
     private String caculateScore(SubjectType type, String content, GradeLevel level) {
         if (GradeLevelUtil.isNullOrEmpty(content)) {
             return "无成绩";
-        }
-        if (content.equals("-1")) {
-            return "未参加";
         }
         if (type == SubjectType.INT) {
             return GradeLevelUtil.calculateINT(content, level);

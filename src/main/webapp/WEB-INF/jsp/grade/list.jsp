@@ -52,6 +52,18 @@
             <td>成绩</td>
             <td>分数</td>
             <td>操作</td>
+      </tr>
+      <tr>
+            <td>${grade.id}</td>
+            <td>${grade.train.name}</td>
+            <td>${grade.subject.name}</td>
+            <td>${grade.user.name}</td>
+            <td>${grade.content}</td>
+            <td>${grade.score}</td>
+            <td>
+                <a href="${pageContext.request.contextPath}/admin/grade/update_grade/${grade.id}">修改</a>
+                <a href="${pageContext.request.contextPath}/admin/grade/delete/${grade.id}">删除</a>
+            </td>
         </tr>
         <c:forEach items="${datas.datas}" var="grade">
             <tr>

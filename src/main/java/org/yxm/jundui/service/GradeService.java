@@ -56,4 +56,12 @@ public class GradeService {
     public Pager<Grade> findGradeByContents(Integer[] tids, Integer[] sids, Integer[] uids, Integer[] gids) {
         return gradeDao.findGradeByContents(tids, sids, uids, gids);
     }
+
+    public Grade load(int gid) {
+        return gradeDao.load(gid);
+    }
+
+    public void delete(int gid) {
+        gradeDao.delete(gid);
+    }
 }
