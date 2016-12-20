@@ -11,6 +11,7 @@ import org.yxm.jundui.model.Role;
 import org.yxm.jundui.model.User;
 import org.yxm.jundui.util.ArrayUtils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -82,5 +83,16 @@ public class RoleService {
 
     public Integer[] listRolePermissionIds(int rid) {
         return ArrayUtils.list2Array(roleDao.listRolePermissionIds(rid));
+    }
+
+    public List<PermissionUrl> listRolesPermissions(List<Integer> rids) {
+        List<Integer> permissionIds = new ArrayList<>();
+        for (Integer rid : rids) {
+            List<Integer> ptempIds = roleDao.listRolePermissionIds(rid);
+            for (Integer pid : ptempIds) {
+                if (!permissionIds.contains(pid)) permissionIds.add(pid);
+            }
+        }
+        return permissionUrlDao.listPermissions(ArrayUtils.list2Array(permissionIds));
     }
 }

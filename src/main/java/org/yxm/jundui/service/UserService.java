@@ -6,6 +6,7 @@ import org.yxm.jundui.dao.GroupDao;
 import org.yxm.jundui.dao.RoleDao;
 import org.yxm.jundui.dao.UserDao;
 import org.yxm.jundui.model.Pager;
+import org.yxm.jundui.model.Role;
 import org.yxm.jundui.model.Train;
 import org.yxm.jundui.model.User;
 
@@ -92,6 +93,10 @@ public class UserService {
         return userDao.listUserRoleIds(uid);
     }
 
+    public List<Role> listUserRoles(int uid) {
+        return userDao.listUserRoles(uid);
+    }
+
 
     public List<User> listGroupsUsers(Integer[] groupIds) {
         List<User> users = new ArrayList<>();
@@ -118,4 +123,6 @@ public class UserService {
     public List<Train> listUserTrains(int uid) {
         return userDao.listUserCreatedTrain(uid);
     }
+
+
 }
