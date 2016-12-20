@@ -10,6 +10,7 @@
 <div class="sidebar">
     <ul class="nav">
         <li><a href="${pageContext.request.contextPath}/admin/role/list" target="content">角色管理</a></li>
+        <li><a href="${pageContext.request.contextPath}/admin/permission/list" target="content">权限管理</a></li>
         <li><a href="${pageContext.request.contextPath}/admin/group/list" target="content">团体管理</a></li>
         <li><a href="${pageContext.request.contextPath}/admin/user/list" target="content">用户管理</a></li>
         <li><a href="${pageContext.request.contextPath}/admin/subject/list" target="content">训练科目管理</a></li>
