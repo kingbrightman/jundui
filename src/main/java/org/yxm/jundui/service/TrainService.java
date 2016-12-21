@@ -6,7 +6,9 @@ import org.yxm.jundui.dao.GroupDao;
 import org.yxm.jundui.dao.SubjectDao;
 import org.yxm.jundui.dao.TrainDao;
 import org.yxm.jundui.model.Pager;
+import org.yxm.jundui.model.Subject;
 import org.yxm.jundui.model.Train;
+import org.yxm.jundui.model.User;
 
 import java.util.Arrays;
 import java.util.List;
@@ -88,10 +90,15 @@ public class TrainService {
     }
 
     public List<Integer> listTrainSubjectIds(int tid) {
-        return trainDao.loadTrainSubjectIds(tid);
+        return trainDao.listTrainSubjectIds(tid);
     }
 
     public List<Integer> listTrainGroupIds(int tid) {
         return trainDao.listTrainGroupIds(tid);
     }
+
+    public List<Subject> listTrainSubjects(int tid) {
+        return trainDao.listTrainSubjects(tid);
+    }
+
 }

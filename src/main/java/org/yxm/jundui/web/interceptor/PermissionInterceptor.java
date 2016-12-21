@@ -38,7 +38,6 @@ public class PermissionInterceptor implements HandlerInterceptor {
                 List<PermissionUrl> permissions = (List<PermissionUrl>) request.getSession().getAttribute(Constants.LOGIN_USER_PERMISSIONS);
                 if (permissions != null) {
                     String url = request.getRequestURL().toString();
-                    System.out.println("url:" + url);
                     boolean havePermission = false;
                     for (PermissionUrl permission : permissions) {
                         if (url.contains(permission.getUrl())) {

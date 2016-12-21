@@ -17,7 +17,6 @@
     <a href="add" class="btn btn-default btn-lg  btn-sm" role="button">添加</a>
 
     <table class="table table-hover table-bordered" id="list_table">
-        <thead>
         <tr>
             <td>ID</td>
             <td>名称</td>
@@ -25,8 +24,6 @@
             <td>类型</td>
             <td>操作</td>
         </tr>
-        </thead>
-        <tbody>
         <c:forEach items="${datas.datas}" var="subject">
             <tr>
                 <td>${subject.id}</td>
@@ -40,8 +37,6 @@
                 </td>
             </tr>
         </c:forEach>
-
-        </tbody>
     </table>
 
     <%--分页--%>
