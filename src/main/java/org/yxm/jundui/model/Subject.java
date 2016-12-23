@@ -1,10 +1,8 @@
 package org.yxm.jundui.model;
 
 import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import javax.persistence.*;
-import java.util.Date;
 
 /**
  * Created by yxm on 2016.11.15.

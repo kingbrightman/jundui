@@ -3,10 +3,10 @@ package org.yxm.jundui.dao;
 import org.springframework.stereotype.Repository;
 import org.yxm.jundui.model.Group;
 import org.yxm.jundui.model.Pager;
-import org.yxm.jundui.model.Train;
 import org.yxm.jundui.model.User;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -54,6 +54,7 @@ public class GroupDao extends BaseDao<Group> {
 
     public List<Group> listChildren(int gid) {
         List<Integer> ids = listChildrenIds(gid);
+        if (ids == null || ids.size() < 1) return Collections.emptyList();
 
         String hql = "select g from Group g where g.id in (:ids)";
         return this.getSession().createQuery(hql).setParameterList("ids", ids).list();

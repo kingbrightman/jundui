@@ -14,6 +14,8 @@
     <li class="active">训练信息</li>
 </ul>
 
+<h1><a href="${pageContext.request.contextPath}/admin/excel/train/${train.id}">导出成绩</a></h1>
+
 <div class="col-sm-9">
     <p style="text-align:center; font-size: 20px; font-family:'Microsoft Yahei', '微软雅黑', Arial, sans-serif;">
         训练名称：${train.name} &nbsp;&nbsp;&nbsp;级别： ${train.level.name}</p>

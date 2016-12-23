@@ -35,6 +35,10 @@
         </property>
     </bean>
 
+    <!--权限拦截-->
+    <mvc:interceptors>
+        <bean id="oneInterceptor" class="org.yxm.jundui.web.interceptor.PermissionInterceptor"/>
+    </mvc:interceptors>
 
 
     <!--文件上传-->

@@ -29,12 +29,16 @@
         <c:forEach items="${datas.datas}" var="role">
             <tr>
                 <td>${role.id}</td>
-                <td>${role.name}</td>
+                <td><a href="${pageContext.request.contextPath}/admin/role/show/${role.id}"> ${role.name} </a></td>
                 <td>${role.description}</td>
                 <td>${role.type}</td>
                 <td>
-                    <a href="update/${role.id}" class="btn btn-default btn-lg  btn-xs" role="button">修改</a>
-                    <a href="delete/${role.id}" class="btn btn-default btn-lg  btn-xs" role="button">删除</a>
+                    <a href="${pageContext.request.contextPath}/admin/role/update/${role.id}"
+                       class="btn btn-default btn-lg  btn-xs" role="button">修改</a>
+                    <a href="${pageContext.request.contextPath}/admin/role/delete/${role.id}"
+                       class="btn btn-default btn-lg  btn-xs" role="button">删除</a>
+                    <a href="${pageContext.request.contextPath}/admin/role/permission/edit/${role.id}"
+                       class="btn btn-default btn-lg  btn-xs" role="button">管理权限</a>
                 </td>
             </tr>
         </c:forEach>
@@ -47,8 +51,6 @@
         <jsp:param value="list" name="url"/>
     </jsp:include>
 </div>
-
-
 
 
 </body>

@@ -1,6 +1,5 @@
 package org.yxm.jundui.model;
 
-import javax.annotation.Generated;
 import javax.persistence.*;
 
 /**

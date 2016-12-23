@@ -2,14 +2,19 @@ package org.yxm.jundui.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.yxm.jundui.base.Constants;
+import org.yxm.jundui.model.PermissionUrl;
+import org.yxm.jundui.model.Role;
 import org.yxm.jundui.model.User;
+import org.yxm.jundui.service.RoleService;
 import org.yxm.jundui.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * Created by yxm on 2016.12.05.
@@ -20,6 +25,8 @@ public class LoginController {
 
     @Autowired
     UserService userService;
+    @Autowired
+    RoleService roleService;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login() {
@@ -38,6 +45,7 @@ public class LoginController {
 
         if (user.getPassword().equals(password)) {
             request.getSession().setAttribute(Constants.LOGIN_USER, user);
+            initPermission(user.getId(), request);
             return "redirect:/admin/main/index";
         }
 
@@ -45,10 +53,22 @@ public class LoginController {
         return "main/login";
     }
 
+    //添加用户所有的权限导session中
+    private void initPermission(int uid, HttpServletRequest request) {
+        List<Integer> rids = userService.listUserRoleIds(uid);
+        List<Role> loginUserRoles = userService.listUserRoles(uid);
+        List<PermissionUrl> permissions = roleService.listRolesPermissions(rids);
+
+        request.getSession().setAttribute(Constants.LOGIN_USER_PERMISSIONS, permissions);
+        request.getSession().setAttribute(Constants.LOGIN_USER_ROLES, loginUserRoles);
+    }
+
     @RequestMapping(value = "/logout")
     public String logout(HttpServletRequest request) {
         request.getSession().removeAttribute(Constants.LOGIN_USER);
         request.getSession().removeAttribute(Constants.GRADE_SELECT);
+        request.getSession().removeAttribute(Constants.LOGIN_USER_PERMISSIONS);
+        request.getSession().removeAttribute(Constants.LOGIN_USER_ROLES);
         return "redirect:/admin/main/index";
     }
 }

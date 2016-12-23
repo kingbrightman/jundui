@@ -48,11 +48,15 @@ public class TrainDao extends BaseDao<Train> {
                 .uniqueResult();
     }
 
-    public List<Integer> loadTrainSubjectIds(int id) {
+    public List<Integer> listTrainSubjectIds(int id) {
         String hql = "select ts.subject.id from TrainSubject ts where ts.train.id = " + id;
         return this.getSession().createQuery(hql).list();
     }
 
+    public List<Subject> listTrainSubjects(int tid) {
+        String hql = "select ts.subject from TrainSubject ts where ts.train.id = " + tid;
+        return this.getSession().createQuery(hql).list();
+    }
 
     public void addTrainGroup(Train train, Group group) {
         TrainGroup tg = this.loadTrainGroup(train, group);
@@ -83,4 +87,5 @@ public class TrainDao extends BaseDao<Train> {
         String hql = "select tg.group.id from TrainGroup tg where tg.train.id = " + id;
         return this.getSession().createQuery(hql).list();
     }
+
 }

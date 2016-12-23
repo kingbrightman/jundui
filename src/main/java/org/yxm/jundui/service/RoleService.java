@@ -2,12 +2,17 @@ package org.yxm.jundui.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.yxm.jundui.dao.PermissionUrlDao;
 import org.yxm.jundui.dao.RoleDao;
 import org.yxm.jundui.exception.CmsException;
 import org.yxm.jundui.model.Pager;
+import org.yxm.jundui.model.PermissionUrl;
 import org.yxm.jundui.model.Role;
 import org.yxm.jundui.model.User;
+import org.yxm.jundui.util.ArrayUtils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -17,7 +22,9 @@ import java.util.List;
 public class RoleService {
 
     @Autowired
-    RoleDao roleDao;
+    private RoleDao roleDao;
+    @Autowired
+    private PermissionUrlDao permissionUrlDao;
 
     public void add(Role role) {
         roleDao.add(role);
@@ -45,4 +52,47 @@ public class RoleService {
         return roleDao.find();
     }
 
+    public List<PermissionUrl> listRolePermissions(int rid) {
+        return roleDao.listRolePermissions(rid);
+    }
+
+    public void updatePermissions(int rid, Integer[] permissionIds) {
+        List<Integer> oldUrlIds = roleDao.listRolePermissionIds(rid);
+        List<Integer> newUrlIds = Arrays.asList(permissionIds);
+
+        for (Integer id : oldUrlIds) {
+            if (!newUrlIds.contains(id)) {
+                this.deleteRolePermission(rid, id);
+            }
+        }
+
+        for (Integer id : newUrlIds) {
+            if (!oldUrlIds.contains(id)) {
+                this.addRolePermission(rid, id);
+            }
+        }
+    }
+
+    private void addRolePermission(int rid, Integer pid) {
+        roleDao.addRolePermission(roleDao.load(rid), permissionUrlDao.load(pid));
+    }
+
+    private void deleteRolePermission(int rid, Integer pid) {
+        roleDao.deleteRolePermission(rid, pid);
+    }
+
+    public Integer[] listRolePermissionIds(int rid) {
+        return ArrayUtils.list2Array(roleDao.listRolePermissionIds(rid));
+    }
+
+    public List<PermissionUrl> listRolesPermissions(List<Integer> rids) {
+        List<Integer> permissionIds = new ArrayList<>();
+        for (Integer rid : rids) {
+            List<Integer> ptempIds = roleDao.listRolePermissionIds(rid);
+            for (Integer pid : ptempIds) {
+                if (!permissionIds.contains(pid)) permissionIds.add(pid);
+            }
+        }
+        return permissionUrlDao.listPermissions(ArrayUtils.list2Array(permissionIds));
+    }
 }

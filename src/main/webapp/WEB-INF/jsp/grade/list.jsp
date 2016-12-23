@@ -45,7 +45,6 @@
 
     <table class="table table-hover table-bordered">
         <tr>
-<<<<<<< HEAD
             <td>ID</td>
             <td>训练名称</td>
             <td>项目</td>
@@ -53,18 +52,6 @@
             <td>成绩</td>
             <td>分数</td>
             <td>操作</td>
-=======
-            <td>${grade.id}</td>
-            <td>${grade.train.name}</td>
-            <td>${grade.subject.name}</td>
-            <td>${grade.user.name}</td>
-            <td>${grade.content}</td>
-            <td>${grade.score}</td>
-            <td>
-                <a href="${pageContext.request.contextPath}/admin/grade/update_grade/${grade.id}">修改</a>
-                <a href="${pageContext.request.contextPath}/admin/grade/delete/${grade.id}">删除</a>
-            </td>
->>>>>>> main/master
         </tr>
         <c:forEach items="${datas.datas}" var="grade">
             <tr>
@@ -75,8 +62,8 @@
                 <td>${grade.content}</td>
                 <td>${grade.score}</td>
                 <td>
-                    <a href="#">修改</a>
-                    <a href="#">删除</a>
+                    <a href="${pageContext.request.contextPath}/admin/grade/update_grade/${grade.id}">修改</a>
+                    <a href="${pageContext.request.contextPath}/admin/grade/delete/${grade.id}">删除</a>
                 </td>
             </tr>
         </c:forEach>
@@ -95,26 +82,26 @@
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.1.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/multiple-select.js"></script>
 <script>
-    $(function() {
-        $('.uselect').change(function() {
+    $(function () {
+        $('.uselect').change(function () {
             console.log($(this).val());
         }).multipleSelect({
             width: '23%',
             placeholder: '选择用户'
         });
-        $('.tselect').change(function() {
+        $('.tselect').change(function () {
             console.log($(this).val());
         }).multipleSelect({
             width: '23%',
             placeholder: '选择训练项目'
         });
-        $('.sselect').change(function() {
+        $('.sselect').change(function () {
             console.log($(this).val());
         }).multipleSelect({
             width: '23%',
             placeholder: '选择训练'
         });
-        $('.gselect').change(function() {
+        $('.gselect').change(function () {
             console.log($(this).val());
         }).multipleSelect({
             width: '23%',
