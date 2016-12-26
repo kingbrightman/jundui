@@ -47,7 +47,7 @@
             <tr>
                 <td colspan="2">
                     <input class="btn btn-default" type="submit" value="提交">
-                    <button href=”#” onClick="javascript :history.back(-1);" class="btn btn-default">返回</>
+                    <button href=”#” onClick="javascript :history.back(-1);" class="btn btn-default">返回</button>
                 </td>
             </tr>
             </tbody>
